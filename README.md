@@ -6,9 +6,11 @@ Luis Aguilar
 
 Francisco Gomez
 
-Mark R.Jagdeep 
+Mark R.
 
-SranAgustin Valadez
+Jagdeep Sran
+
+Agustin Valadez
 
 **Description**
 ------------------
