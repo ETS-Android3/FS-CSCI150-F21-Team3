@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         logInBtn = (Button) findViewById(R.id.logIn);
         signUpBtn = (Button) findViewById(R.id.signUp);
 
+        // By clicking this button the user goes to the home activity
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        // By clicking the is button the user goes to the sing up activity
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
