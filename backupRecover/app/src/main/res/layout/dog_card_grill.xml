@@ -37,6 +37,17 @@
             android:endColor="#00000000"
             android:startColor="#ff000000"
             android:background="@drawable/dark_gradient"/>
+        <!-- Display the name of the dog -->
+        <TextView
+            android:id="@+id/idDogName"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:text="Dog Name"
+            android:layout_marginTop="360dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:textSize="19dp" />
             <!-- LinearLayout to create a row with two columns to display
             The name and bread of the dog-->
             <LinearLayout
@@ -44,48 +55,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2">
-                <!-- Displays the name of the dog -->>
+
+                <!-- Display the city of the dog -->
                 <TextView
-                    android:id="@+id/idDogName"
+                    android:id="@+id/idCity"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="35dp"
-                    android:text="Dog Name"
-                    android:layout_marginTop="335dp"
+                    android:layout_marginTop="382dp"
+                    android:text="City"
+                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                    android:textSize="16dp"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="19dp" />
+                    android:textColor="@color/white" />
                 <!-- Display the breed of the dog -->
                 <TextView
                     android:id="@+id/idBreed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="335dp"
+                    android:layout_marginTop="382dp"
                     android:layout_weight="1"
                     android:text="Breed"
                     android:textAlignment="textStart"
-                    android:paddingRight="10dp"
+                    android:paddingRight="16dp"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
             </LinearLayout>
-            <!-- Display the city of the dog -->
-            <TextView
-                android:id="@+id/idCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="360dp"
-                android:text="City"
-                android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                android:textSize="16dp"
-                android:paddingLeft="10dp"
-                android:textColor="@color/white" />
+
         <!-- Display the bio of the dog -->
         <TextView
             android:id="@+id/idBio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="383dp"
+            android:layout_marginTop="402dp"
             android:paddingLeft="17dp"
             android:text="Bio"
             android:textColor="@color/white"

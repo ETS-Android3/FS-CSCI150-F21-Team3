@@ -24,12 +24,11 @@
     <!--Is the email field the id:logInEmail -->
     <EditText
         android:id="@+id/logInEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
-        android:width="300dp"
         android:background="@drawable/boxes_bg"
         android:ems="10"
         android:hint="Email"
@@ -37,6 +36,7 @@
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:textSize="25dp"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -46,9 +46,11 @@
     <!--Is the Password field the id:inPass -->
     <EditText
         android:id="@+id/inPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_width="345dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:width="300dp"
         android:background="@drawable/boxes_bg"
         android:ems="10"
@@ -58,34 +60,51 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logInEmail" />
     
     <!-- This button takes you to the home of the app id:logIn-->
+
+    <!-- This button takes your to a sign up page id:signUP-->
+
     <Button
         android:id="@+id/logIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_width="292dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="56dp"
         android:width="200dp"
         android:text="Log In"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inPass" />
-    
-    <!-- This button takes your to a sign up page id:signUP-->
-    <Button
-        android:id="@+id/signUp"
+
+    <TextView
+        android:id="@+id/singUpMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:width="200dp"
-        android:text="Sign up"
+        android:layout_marginTop="28dp"
+        android:text="Don't have an account?"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logIn" />
+
+    <Button
+        android:id="@+id/signUp"
+        android:layout_width="292dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:width="200dp"
+        android:text="Sing up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/singUpMessage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
