@@ -2,6 +2,7 @@ package com.example.backuprecover;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -88,7 +89,7 @@ public class Home extends AppCompatActivity {
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //show pop up
+                bioDialog();
             }
         });
     }
@@ -97,7 +98,6 @@ public class Home extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         final View bioPopupView = getLayoutInflater().inflate(R.layout.bio_popup, null);
         exitBio = (Button) bioPopupView.findViewById(R.id.exitBio);
-
         dialogBuilder.setView(bioPopupView);
         dialog = dialogBuilder.create();
         dialog.show();
