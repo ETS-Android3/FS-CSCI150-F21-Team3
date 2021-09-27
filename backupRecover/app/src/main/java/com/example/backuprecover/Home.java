@@ -1,12 +1,18 @@
 package com.example.backuprecover;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.daprlabs.cardstack.SwipeDeck;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -15,6 +21,13 @@ public class Home extends AppCompatActivity {
     // declaring our swipe deck and dog list array
     private SwipeDeck cardStack;
     private ArrayList<DogClass> dogList;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView extendedBio;
+    private TextView age;
+    private TextView weight;
+    private Button exitBio;
+    private Button viewProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +37,7 @@ public class Home extends AppCompatActivity {
         // initializing our array of dog list and swipe deck.
         dogList = new ArrayList<>();
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+        viewProfile = (Button) findViewById(R.id.viewProfile);
 
         // adding data to our array of dogs (hardcoding the data until we get the database connected).
         dogList.add(new DogClass("Victor", "Bulldog", "Fresno", "Mascot of Fresno State", R.drawable.victor));
@@ -68,6 +82,30 @@ public class Home extends AppCompatActivity {
             public void cardActionUp() {
                 // if card is moved up.
                 Log.i("TAG", "CARDS MOVED UP");
+            }
+        });
+
+        viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //show pop up
+            }
+        });
+    }
+
+    public void bioDialog() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View bioPopupView = getLayoutInflater().inflate(R.layout.bio_popup, null);
+        exitBio = (Button) bioPopupView.findViewById(R.id.exitBio);
+
+        dialogBuilder.setView(bioPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        exitBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
             }
         });
     }
