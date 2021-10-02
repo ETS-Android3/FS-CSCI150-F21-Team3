@@ -1,6 +1,8 @@
 package com.example.backuprecover;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -8,10 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.daprlabs.cardstack.SwipeDeck;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.w3c.dom.Text;
 
@@ -34,6 +39,33 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.findPlaypal);  //Set Home selected on bottom navigation
+
+        //Navigation selected listener
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.userProfile:
+                        startActivity(new Intent(getApplicationContext() ,UserProfile.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.messages:
+                        startActivity(new Intent(getApplicationContext() ,Messages.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext() ,Settings.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.findPlaypal:
+                        return true;
+                }
+                return false;
+            }
+        });
 
         // initializing our array of dog list and swipe deck.
         dogList = new ArrayList<>();

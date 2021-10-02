@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BackupRecover">
         <activity
+            android:name=".Settings"
+            android:exported="true" />
+        <activity
+            android:name=".Messages"
+            android:exported="true" />
+        <activity
+            android:name=".UserProfile"
+            android:exported="true" />
+        <activity
             android:name=".Home"
             android:exported="true" />
         <activity
