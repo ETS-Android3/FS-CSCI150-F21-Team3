@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BackupRecover">
         <activity
+            android:name=".SignUpPage3"
+            android:exported="true" />
+        <activity
             android:name=".Settings"
             android:exported="true" />
         <activity

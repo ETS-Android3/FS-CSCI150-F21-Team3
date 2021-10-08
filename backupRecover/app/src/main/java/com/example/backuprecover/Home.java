@@ -44,6 +44,7 @@ public class Home extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.findPlaypal);  //Set Home selected on bottom navigation
 
         //Navigation selected listener
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -124,7 +125,26 @@ public class Home extends AppCompatActivity {
                 bioDialog();
             }
         });
+        Button btn = (Button) findViewById(R.id.disLikebtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardStack.swipeTopCardLeft(15);
+
+            }
+        });
+        Button btn2 = (Button) findViewById(R.id.likebtn);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardStack.swipeTopCardRight(15);
+            }
+        });
+
     }
+
+
+
 
     public void bioDialog() {
         dialogBuilder = new AlertDialog.Builder(this);

@@ -68,7 +68,7 @@
                     android:textSize="16dp"
                     android:paddingLeft="10dp"
                     android:textColor="@color/white" />
-                <!-- Display the breed of the dog -->
+                <!-- Display the breed of the dog
                 <TextView
                     android:id="@+id/idBreed"
                     android:layout_width="match_parent"
@@ -80,6 +80,7 @@
                     android:paddingRight="16dp"
                     android:textColor="@color/white"
                     android:textSize="14dp" />
+                -->
             </LinearLayout>
 
         <!-- Display the bio of the dog -->

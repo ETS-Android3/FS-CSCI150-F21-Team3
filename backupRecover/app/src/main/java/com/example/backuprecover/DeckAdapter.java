@@ -53,9 +53,10 @@ public class DeckAdapter extends BaseAdapter {
         ((TextView) v.findViewById(R.id.idDogName)).setText(dogData.get(position).getDogName());
         ((TextView) v.findViewById(R.id.idDogName)).setText(dogData.get(position).getDogName());
         ((TextView) v.findViewById(R.id.idBio)).setText(dogData.get(position).getBio());
-        ((TextView) v.findViewById(R.id.idBreed)).setText(dogData.get(position).getBreed());
+        //((TextView) v.findViewById(R.id.idBreed)).setText(dogData.get(position).getBreed());
         ((TextView) v.findViewById(R.id.idCity)).setText(dogData.get(position).getCity());
         ((ImageView) v.findViewById(R.id.idImage)).setImageResource(dogData.get(position).getImgId());
         return v;
     }
+
 }
