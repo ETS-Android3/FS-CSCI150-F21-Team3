@@ -6,14 +6,16 @@ Luis Aguilar
 
 Francisco Gomez
 
-Mark R.Jagdeep 
+Mark R.
 
-SranAgustin Valadez
+Jagdeep Sran
+
+Agustin Valadez
 
 **Description**
 ------------------
 
-The Play-pal app is an app that brings together caring and responsible dog owners. Dogs need to socialize 
-with other dogs because this helps them with their behavior, health, and happiness. The goal of this app is to make
-it easier for dog owners to have their dogs socialize with other dogs. Owners can look at different dog profiles to 
-find dogs they want their dogs to socialize with.
+Playpal is an Android based mobile application that brings together caring and responsible dog owners. Dogs greatly benefit 
+from socializing with each other because this helps them with their behavior, health, and happiness. The goal of this app is 
+to make it easier for users to locate and communicate with other users in order to set playdates for their respective dogs.
+Users can approve or skip different profiles to find dogs they believe their own dogs would socialize well with.
