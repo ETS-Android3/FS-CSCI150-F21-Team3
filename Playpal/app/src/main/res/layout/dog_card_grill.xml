@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:elevation="8dp"
+    app:cardCornerRadius="4dp">
+
+    <!-- Create a frame layout to place the data of the dog on top of the its image
+     ala tinder-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:orientation="vertical">
+            <!-- is the image of the dog -->
+            <ImageView
+            android:id="@+id/idImage"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:text="test" />
+            <!--The vie is used go create a dark gradient to better display
+            the data of the dog-->
+            <View
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:endColor="#00000000"
+            android:startColor="#ff000000"
+            android:background="@drawable/dark_gradient"/>
+        <!-- Display the name of the dog -->
+        <TextView
+            android:id="@+id/idDogName"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:text="Dog Name"
+            android:layout_marginTop="360dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:textSize="19dp" />
+            <!-- LinearLayout to create a row with two columns to display
+            The name and bread of the dog-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Display the city of the dog -->
+                <TextView
+                    android:id="@+id/idCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="382dp"
+                    android:text="City"
+                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                    android:textSize="16dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white" />
+                <!-- Display the breed of the dog
+                <TextView
+                    android:id="@+id/idBreed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="382dp"
+                    android:layout_weight="1"
+                    android:text="Breed"
+                    android:textAlignment="textStart"
+                    android:paddingRight="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="14dp" />
+                -->
+            </LinearLayout>
+
+        <!-- Display the bio of the dog -->
+        <TextView
+            android:id="@+id/idBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="402dp"
+            android:paddingLeft="17dp"
+            android:text="Bio"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+    </FrameLayout>
+</LinearLayout>
