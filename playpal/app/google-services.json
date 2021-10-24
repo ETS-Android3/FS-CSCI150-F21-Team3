@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "992005980125",
+    "project_id": "playpal-7f874",
+    "storage_bucket": "playpal-7f874.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992005980125:android:9746f7c4007d3e00668034",
+        "android_client_info": {
+          "package_name": "com.team3.playpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992005980125-qlkii7vjdo43gl7oq38u58s8ig2hv0ef.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team3.playpal",
+            "certificate_hash": "c688a683d520b5ef574a950a08f5e1f3422b6da2"
+          }
+        },
+        {
+          "client_id": "992005980125-2ur0oilta5vsbr8ujh2bffcn6qmkllgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa97onedCnhgGp6_zkHBgBW0HEvDKNaqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992005980125-2ur0oilta5vsbr8ujh2bffcn6qmkllgk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

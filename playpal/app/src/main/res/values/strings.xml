@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Playpal</string>
+
+    <string name="reg">Registration</string>
+    <string name="confirm_reg">Complete Registration</string>
+
+
+    <string name="field_email">Email</string>
+    <string name="field_password">Password</string>
+    <string name="field_confirmpass">Confirm Password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_signup">Sign Up</string>
+    <string name="no_acc">Don\'t have an account?</string>
+
+</resources>
