@@ -27,15 +27,25 @@ public class Login_Registration_Option extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            reload();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_reg_option);
 
         // associate variables with XML fields and buttons
-        mLogin = (Button) findViewById(R.id.loginBtn);
-        mSignUp = (Button) findViewById(R.id.signupBtn);
-        mEmail = (EditText) findViewById(R.id.loginEmail);
-        mPass = (EditText) findViewById(R.id.loginPass);
+        mLogin = findViewById(R.id.loginBtn);
+        mSignUp = findViewById(R.id.signupBtn);
+        mEmail = findViewById(R.id.loginEmail);
+        mPass = findViewById(R.id.loginPass);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -55,16 +65,6 @@ public class Login_Registration_Option extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            reload();
-        }
     }
 
     //
@@ -90,6 +90,7 @@ public class Login_Registration_Option extends AppCompatActivity {
                         updateUI(user);
                         Intent i = new Intent(Login_Registration_Option.this,MainActivity.class);
                         startActivity(i);
+                        finish();
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                         Toast.makeText(Login_Registration_Option.this, "Authentication failed.",
