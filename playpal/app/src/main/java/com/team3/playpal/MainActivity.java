@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(MainActivity.this,Login_Registration_Option.class);
+                Intent i = new Intent(MainActivity.this, LogOrRegSelect.class);
                 startActivity(i);
                 finish();
             }

@@ -76,16 +76,13 @@ public class RegistrationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent i = new Intent(RegistrationActivity.this,MainActivity.class);
-                            startActivity(i);
-                            finish();
-                            //updateUI(user);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+                            updateUI(null);
                         }
                     }
                 });
@@ -93,7 +90,18 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
 
-    private void reload() { }
-    private void updateUI(FirebaseUser user) { }
+    private void reload() {
+        Intent i = new Intent(RegistrationActivity.this,MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Intent i = new Intent(RegistrationActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
 
 }

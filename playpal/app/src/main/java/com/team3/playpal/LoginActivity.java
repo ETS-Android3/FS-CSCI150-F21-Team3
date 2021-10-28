@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,10 +17,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login_Registration_Option extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     // initialize variables for login parameters and authentication
-    private Button mLogin,mSignUp;
+    private Button mLogin;
     private EditText mEmail,mPass;
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
@@ -29,7 +28,7 @@ public class Login_Registration_Option extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null) and send them to MainActivity
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             reload();
@@ -39,11 +38,10 @@ public class Login_Registration_Option extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.log_reg_option);
+        setContentView(R.layout.activity_login);
 
         // associate variables with XML fields and buttons
         mLogin = findViewById(R.id.loginBtn);
-        mSignUp = findViewById(R.id.signupBtn);
         mEmail = findViewById(R.id.loginEmail);
         mPass = findViewById(R.id.loginPass);
         mAuth = FirebaseAuth.getInstance();
@@ -57,22 +55,55 @@ public class Login_Registration_Option extends AppCompatActivity {
         });
 
 
-        mSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Login_Registration_Option.this,RegistrationActivity.class);
-                startActivity(i);
-            }
-        });
-
     }
 
-    //
     private void validation(){
+        /*
+        private Boolean isEmail() {
+            String email = inputEmail.getText().toString();
+            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+            if (email.isEmpty()) {
+                inputEmail.setError("Field cannot be empty");
+                return false;
+            } else if (!email.matches(emailPattern)) {
+                inputEmail.setError("Invalid email address");
+                return false;
+            } else {
+                inputEmail.setError(null);
+                //inputEmail.setErrorEnabled(false);
+                return true;
+            }
+        }
+        // Checks if the user entered a valid password
+        private Boolean isPass() {
+            String pass = inputPass.getText().toString();
+            String password = "^" +
+                    //"(?=.*[0-9])" +         //at least 1 digit
+                    //"(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[@#$%^&+=!])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$";
+
+            if (pass.isEmpty()) {
+                inputPass.setError("Field cannot be empty");
+                return false;
+            } else if (!pass.matches(password)) {
+                inputPass.setError("Password is too weak");
+                return false;
+            } else {
+                inputPass.setError(null);
+                return true;
+            }
+        }
+         */
         String email = mEmail.getText().toString();
         String password = mPass.getText().toString();
         if(email.isEmpty() || password.isEmpty()){
-            Toast.makeText(Login_Registration_Option.this, "Don't leave fields empty.",
+            Toast.makeText(LoginActivity.this, "Don't leave fields empty.",
                     Toast.LENGTH_SHORT).show();
         } else {
             signIn(email, password);
@@ -88,12 +119,9 @@ public class Login_Registration_Option extends AppCompatActivity {
                         Log.d(TAG,"signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
-                        Intent i = new Intent(Login_Registration_Option.this,MainActivity.class);
-                        startActivity(i);
-                        finish();
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                        Toast.makeText(Login_Registration_Option.this, "Authentication failed.",
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
@@ -102,9 +130,16 @@ public class Login_Registration_Option extends AppCompatActivity {
     }
 
     private void reload() {
-        Intent i = new Intent(Login_Registration_Option.this,MainActivity.class);
+        Intent i = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(i);
         finish();
     }
-    private void updateUI(FirebaseUser user) { }
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+    }
+
 }

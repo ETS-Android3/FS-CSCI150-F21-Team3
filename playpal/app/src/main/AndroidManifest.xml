@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Playpal">
         <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".InitProfileActivity"
             android:exported="true" />
         <activity
@@ -19,7 +22,7 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".Login_Registration_Option"
+            android:name=".LogOrRegSelect"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

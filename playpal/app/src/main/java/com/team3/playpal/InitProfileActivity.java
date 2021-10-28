@@ -12,3 +12,4 @@ public class InitProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_init_profile);
     }
 }
+

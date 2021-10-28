@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file creates an outline box for text
+-->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:color="@color/mynavyblue"
+        android:width="2dp"/>
+    <corners android:radius="66dp"/>
+</shape>
