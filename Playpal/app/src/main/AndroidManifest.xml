@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BackupRecover">
         <activity
+            android:name="com.example.PlayPal.AboutUs"
+            android:exported="false" />
+        <activity
+            android:name="com.example.PlayPal.Account"
+            android:exported="false" />
+        <activity
+            android:name="com.example.PlayPal.ViewProfile"
+            android:exported="false" />
+        <activity
             android:name="com.example.PlayPal.SignUpPage3"
             android:exported="true" />
         <activity

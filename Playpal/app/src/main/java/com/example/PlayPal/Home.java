@@ -25,13 +25,7 @@ public class Home extends AppCompatActivity {
     private SwipeDeck cardStack;
     private ArrayList<DogClass> dogList;
     public ArrayList<DogClass> likedDogs;
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
-    private TextView extendedBio;
-    private TextView age;
     public String name;
-    private TextView weight;
-    private Button exitBio;
     private Button viewProfile;
 
     @Override
@@ -100,7 +94,7 @@ public class Home extends AppCompatActivity {
                 // if card swipe right
 
                 DogClass likedDog = dogList.get(position);
-               // likedDogs.add(likedDog);
+                // likedDogs.add(likedDog);
                 String name = likedDog.getDogName();
                 Toast.makeText(Home.this, name, Toast.LENGTH_SHORT).show();
             }
@@ -124,13 +118,15 @@ public class Home extends AppCompatActivity {
             }
         });
 
-
+        // Open activity to view user profiles
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bioDialog();
+                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+                startActivity(intent);
             }
         });
+
         Button btn = (Button) findViewById(R.id.disLikebtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,21 +144,4 @@ public class Home extends AppCompatActivity {
         });
 
     }
-
-    public void bioDialog() {
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View bioPopupView = getLayoutInflater().inflate(R.layout.bio_popup, null);
-        exitBio = (Button) bioPopupView.findViewById(R.id.exitBio);
-        dialogBuilder.setView(bioPopupView);
-        dialog = dialogBuilder.create();
-        dialog.show();
-
-        exitBio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
-    //Test comment
 }
