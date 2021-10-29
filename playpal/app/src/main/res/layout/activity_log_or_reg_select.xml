@@ -9,9 +9,10 @@
 
 
     <ImageView
+        android:id="@+id/logoImg"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:contentDescription="@string/my_image_desc"
+        android:contentDescription="@string/logo_desc"
         android:src="@drawable/playpal_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +29,10 @@
         android:text="@string/btn_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoImg"
+        app:layout_constraintVertical_bias="0.857" />
 
     <Button
         android:id="@+id/signupChoice"
@@ -39,6 +43,7 @@
         android:text="@string/btn_signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginChoice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

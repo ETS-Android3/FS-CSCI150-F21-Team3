@@ -6,9 +6,9 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/text_box.xml" value="0.203125" />
-        <entry key="app/src/main/res/layout/activity_init_profile.xml" value="0.23233695652173914" />
+        <entry key="app/src/main/res/layout/activity_init_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_log_or_reg_select.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20969202898550723" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/log_reg_option.xml" value="0.13858695652173914" />

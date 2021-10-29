@@ -1,7 +1,9 @@
 package com.team3.playpal;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +13,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private Button signout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signout = (Button) findViewById(R.id.logout);
+        signout = findViewById(R.id.logout);
 
         signout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     // initialize variables for login parameters and authentication
     private Button mLogin;
     private EditText mEmail,mPass;
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
 
     @Override
@@ -31,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and send them to MainActivity
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            reload();
+            updateUI();
         }
     }
 
@@ -110,36 +109,30 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void signIn(String email, String password){
-        mAuth.signInWithEmailAndPassword(email,password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Log.d(TAG,"signInWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
-                    } else {
-                        Log.w(TAG, "signInWithEmail:failure", task.getException());
-                        Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-                        updateUI(null);
+    private void signIn(String email, String password) {
+        // [START sign_in_with_email]
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            updateUI();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+        // [END sign_in_with_email]
     }
 
-    private void reload() {
-        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+    private void updateUI(){
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
-    }
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
     }
 
 }

@@ -21,7 +21,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private Button rCompleteReg;
     private EditText rEmail,rPass,rConfirmPass;
-    private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
 
     @Override
@@ -59,6 +58,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String email = rEmail.getText().toString();
         String password = rPass.getText().toString();
         String confirmPass = rConfirmPass.getText().toString();
+
         if(email.isEmpty() || password.isEmpty() || confirmPass.isEmpty()){
             Toast.makeText(RegistrationActivity.this, "Don't leave fields empty.",
                     Toast.LENGTH_SHORT).show();
@@ -74,34 +74,28 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
     }
 
-
-
     private void reload() {
-        Intent i = new Intent(RegistrationActivity.this,MainActivity.class);
+        Intent i = new Intent(RegistrationActivity.this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
     }
 
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            Intent i = new Intent(RegistrationActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
+    private void updateUI() {
+        Intent i = new Intent(RegistrationActivity.this, InitProfileActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
     }
 
 }

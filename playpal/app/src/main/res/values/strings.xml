@@ -1,18 +1,28 @@
 <resources>
     <string name="app_name">Playpal</string>
 
-
-    <string name="welcomeMsg">Welcome!</string>
+    <string name="welcome_msg">Welcome!</string>
     <string name="confirm_reg">Complete Registration</string>
-
 
     <string name="field_email">Email</string>
     <string name="field_password">Password</string>
     <string name="field_confirmpass">Confirm Password</string>
     <string name="btn_login">Login</string>
     <string name="btn_signup">Sign Up</string>
+    <string name="btn_browse">BROWSE</string>
+
+    <string name="logo_desc">logo field</string>
+    <string name="upload_desc">upload image field</string>
+
+    <string name ="owner_name">Owner Name</string>
+    <string name ="dog_name">Dog Name</string>
+    <string name ="dog_breed">Breed</string>
+    <string name ="dog_sex">Sex</string>
+    <string name ="dog_weight">Weight (in lbs.)</string>
+    <string name ="dog_bio">Bio</string>
+    <string name ="dog_age">Age</string>
+    <string name ="btn_initProfile">Create Profile</string>
 
 
 
-    <string name="my_image_desc">Playpal Logo</string>
 </resources>
