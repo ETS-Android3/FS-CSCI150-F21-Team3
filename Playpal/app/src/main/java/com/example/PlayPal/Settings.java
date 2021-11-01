@@ -1,6 +1,7 @@
 package com.example.PlayPal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.backuprecover.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,6 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Settings extends AppCompatActivity {
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView logOutText;
+    private Button logOutBtn;
+    private Button cancelBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,19 +75,42 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
-                    case 0:
+                    case 0: //Account
                         startActivity(new Intent(Settings.this, Account.class));
                         return;
-                    case 1:
-                        //Notifications
+                    case 1: //Notifications
+                        //CODE HERE
                         return;
-                    case 2:
+                    case 2: //About Us
                         startActivity(new Intent(Settings.this, AboutUs.class));
                         return;
-                    case 3:
-                        //Log Out
+                    case 3: //Log Out
+                        logOutDialog();
                         return;
                 }
+            }
+        });
+    }
+    public void logOutDialog() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View bioPopupView = getLayoutInflater().inflate(R.layout.log_out_popup, null);
+        cancelBtn = (Button) bioPopupView.findViewById(R.id.cancelBtn);
+        logOutBtn = (Button) bioPopupView.findViewById(R.id.logOutBtn);
+        dialogBuilder.setView(bioPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }

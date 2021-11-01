@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PlayPal</string>
+    <string name="logOutText">Are you sure you would like to log out of PlayPal?</string>
 </resources>
