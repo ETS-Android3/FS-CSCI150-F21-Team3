@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2ce85751e8fad7cb3f5dc5c69247a53f/transformed/jetified-cardstack-0.3.1-beta0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2ce85751e8fad7cb3f5dc5c69247a53f/transformed/jetified-cardstack-0.3.1-beta0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2ce85751e8fad7cb3f5dc5c69247a53f/transformed/jetified-cardstack-0.3.1-beta0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/07d497ea7541169dd9f62bed3cc14728/transformed/jetified-cardstack-0.3.1-beta0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/07d497ea7541169dd9f62bed3cc14728/transformed/jetified-cardstack-0.3.1-beta0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/07d497ea7541169dd9f62bed3cc14728/transformed/jetified-cardstack-0.3.1-beta0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.daprlabs.aaron/cardstack/0.3.1-beta0/92b8f6ee5e848eace4b30a05d70ddef5f9ccaeca/cardstack-0.3.1-beta0-javadoc.jar!/" />
