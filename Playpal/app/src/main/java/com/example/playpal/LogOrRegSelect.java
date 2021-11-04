@@ -39,7 +39,7 @@ public class LogOrRegSelect extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LogOrRegSelect.this,Home.class);
+                Intent i = new Intent(LogOrRegSelect.this,LoginActivity.class);
                 startActivity(i);
             }
         });
@@ -48,7 +48,7 @@ public class LogOrRegSelect extends AppCompatActivity {
         mSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LogOrRegSelect.this,Home.class);
+                Intent i = new Intent(LogOrRegSelect.this,RegistrationActivity.class);
                 startActivity(i);
             }
         });
