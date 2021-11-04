@@ -1,4 +1,4 @@
-package com.example.PlayPal;
+package com.example.playpal;
 // This is the dog class is used to hold information about dogs
 public class DogClass {
 

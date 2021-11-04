@@ -1,4 +1,4 @@
-package com.example.PlayPal;
+package com.example.playpal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.backuprecover.R;
 
 public class SignUp extends AppCompatActivity {
 

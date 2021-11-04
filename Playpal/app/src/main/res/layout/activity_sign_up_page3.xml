@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.PlayPal.SignUpPage3">
+    tools:context="com.example.playpal.SignUpPage3">
 
 
     <!-- This field is for user to enter their first name id:inFirstName -->

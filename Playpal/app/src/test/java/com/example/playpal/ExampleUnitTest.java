@@ -1,4 +1,4 @@
-package com.example.backuprecover;
+package com.example.playpal;
 
 import org.junit.Test;
 

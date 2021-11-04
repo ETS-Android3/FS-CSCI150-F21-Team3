@@ -1,16 +1,14 @@
-package com.example.PlayPal;
+package com.example.playpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.backuprecover.R;
-
-public class AboutUs extends AppCompatActivity {
+public class Account extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
+        setContentView(R.layout.activity_account);
     }
 }

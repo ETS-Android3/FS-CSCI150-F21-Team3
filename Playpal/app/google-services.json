@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "590645130890",
+    "firebase_url": "https://playpal-5b72e-default-rtdb.firebaseio.com",
+    "project_id": "playpal-5b72e",
+    "storage_bucket": "playpal-5b72e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590645130890:android:9cbfabe4ef20b02bc6df73",
+        "android_client_info": {
+          "package_name": "com.example.playpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590645130890-65qmbgvcpkjnhrtaoo0a84ohdhq2ljub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.playpal",
+            "certificate_hash": "c688a683d520b5ef574a950a08f5e1f3422b6da2"
+          }
+        },
+        {
+          "client_id": "590645130890-nopgopf2obgdibs6eth3uf61pcf1g44i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByMo8-ART-ZP-iRuWXTOkyfCvRx_qVPuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590645130890-nopgopf2obgdibs6eth3uf61pcf1g44i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -38,6 +38,13 @@
         <entry key="..\:/Users/franc/AndroidStudioProjects/backupRecover/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/franc/AndroidStudioProjects/backupRecover/app/src/main/res/layout/backupforhome.xml" value="0.10688956433637285" />
         <entry key="..\:/Users/franc/AndroidStudioProjects/backupRecover/app/src/main/res/layout/dog_card_grill.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/text_box.xml" value="0.29814814814814816" />
+        <entry key="app/src/main/res/layout/activity_about_us.xml" value="0.2875905797101449" />
+        <entry key="app/src/main/res/layout/activity_log_or_reg_select.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_sign_up_page3.xml" value="0.18958333333333333" />
+        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.2875905797101449" />
       </map>
     </option>
   </component>

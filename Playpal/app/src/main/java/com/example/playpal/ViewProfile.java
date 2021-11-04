@@ -1,20 +1,15 @@
-package com.example.PlayPal;
+package com.example.playpal;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ViewSwitcher;
-
-import com.example.backuprecover.R;
 
 public class ViewProfile extends AppCompatActivity {
 
