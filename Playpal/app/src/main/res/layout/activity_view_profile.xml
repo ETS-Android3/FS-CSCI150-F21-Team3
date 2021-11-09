@@ -57,7 +57,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="28dp"
             android:gravity="center"
             android:text="DOG NAME"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -67,58 +67,125 @@
 
         <TextView
             android:id="@+id/age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="332dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="20dp"
+            android:text="Age"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/age2"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/age2"
+            android:layout_width="53dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:text="Age:"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:layout_editor_absoluteX="-16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <TextView
-            android:id="@+id/weight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:id="@+id/weight2"
+            android:layout_width="84dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:text="Weight:"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/age"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/age2" />
+
+        <TextView
+            android:id="@+id/weight"
+            android:layout_width="305dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="20dp"
+            android:text="Weight"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/weight2"
+            app:layout_constraintTop_toBottomOf="@+id/age" />
 
         <TextView
             android:id="@+id/breed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="301dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="32dp"
+            android:text="Breed"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breed2"
+            app:layout_constraintTop_toBottomOf="@+id/weight2" />
+
+        <TextView
+            android:id="@+id/breed2"
+            android:layout_width="88dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:text="Breed:"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/weight"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weight2" />
 
         <TextView
             android:id="@+id/sex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="305dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="20dp"
+            android:text="Sex"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sex2"
+            app:layout_constraintTop_toBottomOf="@+id/breed" />
+
+        <TextView
+            android:id="@+id/sex2"
+            android:layout_width="88dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
             android:text="Sex:"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/breed"
-            tools:layout_editor_absoluteX="-16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/breed2" />
 
         <TextView
             android:id="@+id/extendedBio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="369dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="8dp"
+            android:text="Bio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/extendedBio2" />
+
+        <TextView
+            android:id="@+id/extendedBio2"
+            android:layout_width="92dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="Bio:"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/sex"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sex2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,25 +50,27 @@
             android:textSize="19dp" />
             <!-- LinearLayout to create a row with two columns to display
             The name and bread of the dog-->
-            <LinearLayout
+
+        <!-- Display the bio of the dog -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Display the city of the dog -->
+            <TextView
+                android:id="@+id/idCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <!-- Display the city of the dog -->
-                <TextView
-                    android:id="@+id/idCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="382dp"
-                    android:text="City"
-                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                    android:textSize="16dp"
-                    android:paddingLeft="10dp"
-                    android:textColor="@color/white" />
-                <!-- Display the breed of the dog
+                android:layout_marginTop="382dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_baseline_location_on_24"
+                android:paddingLeft="10dp"
+                android:text="City"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+            <!-- Display the breed of the dog
                 <TextView
                     android:id="@+id/idBreed"
                     android:layout_width="match_parent"
@@ -81,9 +83,8 @@
                     android:textColor="@color/white"
                     android:textSize="14dp" />
                 -->
-            </LinearLayout>
+        </LinearLayout>
 
-        <!-- Display the bio of the dog -->
         <TextView
             android:id="@+id/idBio"
             android:layout_width="match_parent"
