@@ -13,15 +13,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.bumptech.glide.Glide;
+
 public class ViewProfile extends AppCompatActivity {
 
     private Button exitProfile;
-    private ImageButton prevImg, nextImg;
-    private ImageSwitcher imageSwitcher;
+    //private ImageButton prevImg, nextImg;
+    //private ImageSwitcher imageSwitcher;
+    private ImageView imageView;
     private TextView viewName, viewWeight, viewBio, viewAge, viewSex, viewBreed;
     private static Dog dogInfo;
 
-    int imageList[] = {R.drawable.emy1, R.drawable.emy2, R.drawable.emy3, R.drawable.emy4};
+    //int imageList[] = {R.drawable.emy1, R.drawable.emy2, R.drawable.emy3, R.drawable.emy4};
     //int length = imageList.length;
     int i = 0;
 
@@ -36,9 +39,11 @@ public class ViewProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
         exitProfile = (Button) findViewById(R.id.exitProfile);
-        prevImg = findViewById(R.id.prevImg);
-        nextImg = findViewById(R.id.nextImg);
-        imageSwitcher = findViewById(R.id.image_switcher);
+        //prevImg = findViewById(R.id.prevImg);
+        //nextImg = findViewById(R.id.nextImg);
+        imageView = findViewById(R.id.image_switcher);
+        //imageSwitcher = findViewById(R.id.image_switcher);
+
 
         //TextView textView = (TextView)findViewById(R.id.name);
         viewName = (TextView)findViewById(R.id.name);
@@ -49,11 +54,15 @@ public class ViewProfile extends AppCompatActivity {
         viewWeight = (TextView)findViewById(R.id.weight);
 
         viewName.setText(dogInfo.getDogName());
-        viewAge.setText(dogInfo.getAge());
-        viewBio.setText(dogInfo.getBio());
-        viewBreed.setText(dogInfo.getBreed());
-        viewSex.setText(dogInfo.getSex());
-        viewWeight.setText(dogInfo.getWeight());
+        viewAge.setText("Age: " + dogInfo.getAge());
+        viewBio.setText("Bio: " + dogInfo.getBio());
+        viewBreed.setText("Breed: " + dogInfo.getBreed());
+        viewSex.setText("Sex: " + dogInfo.getSex());
+        viewWeight.setText("Weight: " + dogInfo.getWeight());
+
+        //Display image
+        Glide.with(this).load(dogInfo.getImageUrl()).into(imageView);
+
         //Exit profile view button
         exitProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +71,7 @@ public class ViewProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /* CODE FOR MULTIPLE IMAGES
         //Image Switcher
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -105,6 +114,6 @@ public class ViewProfile extends AppCompatActivity {
                 }
                 imageSwitcher.setImageResource(imageList[i]);
             }
-        });
+        }); */
     }
 }
