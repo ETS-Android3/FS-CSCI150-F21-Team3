@@ -18,6 +18,7 @@ public class Dog {
     private String owner;
     private String sex;
     private String weight;
+    private String id;
 
 
     public void setAge(String age){
@@ -88,9 +89,15 @@ public class Dog {
         return weight;
     }
 
+    public String getId(){
+        return id;
+    }
+    public void setId(String id){
+        this.id = id;
+    }
     // constructor.
 
-    public Dog(String owner, String imageUrl, String sex, String bio,  String name, String weight, String age, String breed ) {
+    public Dog(String owner, String imageUrl, String sex, String bio,  String name, String weight, String age, String breed, String id ) {
         this.age = age;
         this.bio = bio;
         this.breed = breed;
@@ -99,6 +106,7 @@ public class Dog {
         this.owner = owner;
         this.sex = sex;
         this.weight = weight;
+        this.id = id;
     }
     public Dog(){}
      

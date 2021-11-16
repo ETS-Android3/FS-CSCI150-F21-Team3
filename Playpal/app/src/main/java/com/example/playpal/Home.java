@@ -16,6 +16,7 @@ import com.daprlabs.cardstack.SwipeDeck;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,7 @@ public class Home extends AppCompatActivity {
     public String name;
     private Button viewProfile;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+    ViewProfile vP = new ViewProfile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,18 +91,32 @@ public class Home extends AppCompatActivity {
        // String image = "https://firebasestorage.googleapis.com/v0/b/playpal-5b72e.appspot.com/o/profileImages%2FAG5dkgaFIIQSI1zxY7ETtKdo3Ih2?alt=media&token=249510be-de2a-42e3-b967-b0361279a82d";
        // DogClass dog = new  DogClass("4", "Mascot of Fresno State", "Bulldog", image , "Victor", "Fresno", "Male", "6");
        // dog.setImgUrl(image);
-       // dogList.add(dog);
+        //dogList.add(dog);
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        //DatabaseReference UsersdRef = rootRef.child("Users");
-        ViewProfile vP = new ViewProfile();
+        final FirebaseUser currentUser= FirebaseAuth.getInstance().getCurrentUser();
+        //DataSnapshot thiUser = reference.child(currentUser);
+
         reference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Log.d("DOGs", "Dogs");
+                    Log.d("TAG Ds",ds.getKey());
+                    Log.d("TAG Current",currentUser.getUid());
+
                     Dog dog = ds.getValue(Dog.class);
-                    dog.setDogName(ds.child("name").getValue(String.class));
-                    dogList.add(dog);
+
+                    if(!ds.getKey().equals(currentUser.getUid())) {
+                        Log.d("TAg",currentUser.getUid());
+                        dog.setId(ds.getKey());
+                        dog.setDogName(ds.child("name").getValue(String.class));
+                        dogList.add(dog);
+                    }
+                    else{
+                        Log.d("TAG REjected Dog",ds.child("name").getValue(String.class));
+                    }
                     /*
                     totalSize = (int) dataSnapshot.getChildrenCount();
                     String img = ds.child("imageUrl").getValue(String.class);
@@ -125,7 +141,7 @@ public class Home extends AppCompatActivity {
 
                 }
                 adapter.notifyDataSetChanged();
-                //ViewProfile vP = new ViewProfile();
+
                 //Log.d("TAG", dogList.get(0).getDogName());
                 vP.setW(dogList.get(0));
             }
@@ -149,12 +165,9 @@ public class Home extends AppCompatActivity {
 
             @Override
             public void cardSwipedLeft(int position) {
-
-                // if card swipe left
-                if(dogList.size() > position + 1)
-                    vP.setW(dogList.get(position+=1));
-                dogList.remove(position -= 1);
-
+                if(dogList.size() > position + 1) {
+                    vP.setW(dogList.get(position + 1));
+                }
                     //vP.setW(dogList.get(position+=1));
                 Toast.makeText(Home.this, "Card Swiped Left", Toast.LENGTH_SHORT).show();
             }
@@ -162,12 +175,12 @@ public class Home extends AppCompatActivity {
             @Override
             public void cardSwipedRight(int position) {
                 // if card swipe right
-                if(dogList.size() > position + 1) {
-                    vP.setW(dogList.get(position += 1));
-                }
-                dogList.remove(position -= 1);
-
-
+               Log.d("LIKED DOG: ", dogList.get(position).getDogName());
+               Log.d("LIKED DOG's ID: ", dogList.get(position).getId());
+               if(dogList.size() > position + 1) {
+                   vP.setW(dogList.get(position + 1));
+               }
+               // dogList.remove(position);
                 //User likedDog = dogList.get(position);
                 // likedDogs.add(likedDog);
                // String name = likedDog.getDogName();
@@ -176,11 +189,10 @@ public class Home extends AppCompatActivity {
 
             @Override
             public void cardsDepleted() {
-                
+
                 viewProfile.setVisibility(View.GONE);
                 btn.setVisibility(View.GONE);
                 btn2.setVisibility(View.GONE);
-
 
                 // if no cards in the deck
                 Toast.makeText(Home.this, "No more dogs in your city", Toast.LENGTH_SHORT).show();
@@ -225,4 +237,7 @@ public class Home extends AppCompatActivity {
         });
 
     }
+
+
+
 }
