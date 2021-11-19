@@ -1,65 +1,317 @@
 package com.example.playpal;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.daprlabs.cardstack.SwipeDeck;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 
-public class Home extends AppCompatActivity {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Home extends AppCompatActivity implements LocationListener {
+
+    // Variables dependant on firebase usage
+    private FirebaseAuth mAuth;
+    private DatabaseReference coordinatesRef;
+    private DatabaseReference userIDRef;
+    private String userId;
+    private String userLoc;
+
+    // location manipulation variables
+    protected double lati, longi;
+    LocationManager locationManager;
 
     // declaring our swipe deck and dog list array
     private SwipeDeck cardStack;
     private ArrayList<Dog> dogList;
-    public ArrayList<Dog> likedDogs;
-    public String name;
+    private ArrayList<String> dogIds;
+    private ArrayList<String> seenIds;
+    private ArrayList<String> swipedYesIds;
+
     private Button viewProfile;
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-    ViewProfile vP = new ViewProfile();
+    //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Location permission request
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(Home.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(Home.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},100);}
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+
+
+        // getting the xml components into variables
+        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+        viewProfile = (Button) findViewById(R.id.viewProfile);
+        Button btn2 = (Button) findViewById(R.id.likebtn);
+        Button btn = (Button) findViewById(R.id.disLikebtn);
+
+        //Firebase get userID
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference user = reference.child(userId);
+        ViewProfile vP = new ViewProfile();
+
+        user.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                seenIds = new ArrayList<>();
+
+                Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                profileSeen.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshotz) {
+                        //snapshot.getChildrenCount();
+                        //Log.i("TAG",String.valueOf(snapshotz.getChildrenCount()));
+                        for (DataSnapshot ys : snapshotz.getChildren()) {
+                            //Log.i("TAG",ys.getKey());
+                            seenIds.add(ys.getKey());
+                        }
+                        //obtained user's location via database reference
+                        userLoc = (String) snapshot.child("location").getValue();
+                        if(userLoc != null){ //if the user doesnt have a location entry in database
+                            //query to filter out database entries that do not match userLoc
+                            Query filterByUserLoc = reference.orderByChild("location").equalTo(userLoc);
+                            filterByUserLoc.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    // initializing our array of dog list and swipe deck.
+                                    cardStack.removeAllViews();
+                                    dogList = new ArrayList<>();
+                                    dogIds = new ArrayList<>();
+                                    swipedYesIds = new ArrayList<>();
+                                    //seenIds = new ArrayList<>();
+                                    DeckAdapter adapter = new DeckAdapter(dogList, Home.this);
+                                    // setting adapter to the card deck.
+                                    // user found
+                                    if  (dataSnapshot.exists()){
+                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                            Dog dog = ds.getValue(Dog.class);
+
+                                            if(!ds.getKey().equals(userId) && !seenIds.contains(ds.getKey())){
+                                                dogList.add(dog);
+                                                dogIds.add(ds.getKey());
+                                            }
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                        //ViewProfile vP = new ViewProfile();
+                                        //Log.d("TAG", dogList.get(0).getDogName());
+                                    }
+                                    // user not found
+                                    else{
+                                        Toast.makeText(Home.this, "Test Reached" , Toast.LENGTH_SHORT).show();
+                                    }
+                                    if(!dogList.isEmpty()){
+                                        viewProfile.setVisibility(View.VISIBLE);
+                                        btn.setVisibility(View.VISIBLE);
+                                        btn2.setVisibility(View.VISIBLE);
+                                        cardStack.setVisibility(View.VISIBLE);
+                                        vP.setW(dogList.get(0));
+                                        // creating the adapter class and passing the dog list array.
+                                        cardStack.setAdapter(adapter);
+                                        //event callback to our card deck.
+                                        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+                                            @Override
+                                            public void cardSwipedLeft(int position) {
+                                                // if card swipe left
+                                                if (dogList.size() > position + 1) {
+
+                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                                                    Map<String, Object> seenUser = new HashMap<>();
+                                                    seenUser.put(dogIds.get(position), true);
+                                                    profileSeenRef.updateChildren(seenUser);
+
+                                                    vP.setW(dogList.get(position += 1));
+                                                } else{
+                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                                                    Map<String, Object> seenUser = new HashMap<>();
+                                                    seenUser.put(dogIds.get(position), true);
+                                                    profileSeenRef.updateChildren(seenUser);
+                                                }
+
+
+                                                DatabaseReference profileDisliked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("matches").child("nope");
+                                                Map<String, Object> sayNay = new HashMap<>();
+                                                sayNay.put(dogIds.get(position), true);
+                                                profileDisliked.updateChildren(sayNay);
+
+                                            }
+
+                                            @Override
+                                            public void cardSwipedRight(int position) {
+                                                if (dogList.size() > position + 1) {
+                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                                                    Map<String, Object> seenUser = new HashMap<>();
+                                                    seenUser.put(dogIds.get(position), true);
+                                                    profileSeenRef.updateChildren(seenUser);
+
+                                                    vP.setW(dogList.get(position += 1));
+                                                }else{
+                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                                                    Map<String, Object> seenUser = new HashMap<>();
+                                                    seenUser.put(dogIds.get(position), true);
+                                                    profileSeenRef.updateChildren(seenUser);
+                                                }
+
+                                                DatabaseReference profileLiked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("matches").child("yes");
+                                                Map<String, Object> sayYay = new HashMap<>();
+                                                sayYay.put(dogIds.get(position), true);
+                                                profileLiked.updateChildren(sayYay);
+
+                                                Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(dogIds.get(position)).child("matches").child("yes");
+                                                profileSeen.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshotter) {
+                                                        if(snapshotter.exists()){
+                                                            for(DataSnapshot wtf : snapshotter.getChildren()){
+                                                                swipedYesIds.add(wtf.getKey());
+                                                                //Log.i("TAG",String.valueOf(wtf.getKey()));
+                                                            }
+                                                            if (swipedYesIds.contains(userId)){
+                                                                Toast.makeText(Home.this, "You've been matched!", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                            //Log.i("TAG",String.valueOf(snapshotter.getChildrenCount()));
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+
+                                            }
+
+                                            @Override
+                                            public void cardsDepleted() {
+
+                                                viewProfile.setVisibility(View.INVISIBLE);
+                                                btn.setVisibility(View.INVISIBLE);
+                                                btn2.setVisibility(View.INVISIBLE);
+                                                // if no cards in the deck
+                                                //Toast.makeText(Home.this, "No more dogs in your city", Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            @Override
+                                            public void cardActionDown() {
+                                                // if card is swipped down.
+                                                // Log.i("TAG", "CARDS MOVED DOWN");
+                                            }
+
+                                            @Override
+                                            public void cardActionUp() {
+                                                // if card is moved up.
+                                                //Log.i("TAG", "CARDS MOVED UP");
+                                            }
+                                        });
+
+                                        // Open activity to view User profiles
+
+                                        viewProfile.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+
+                                        btn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                cardStack.swipeTopCardLeft(15);
+
+                                            }
+                                        });
+
+                                        btn2.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                cardStack.swipeTopCardRight(15);
+                                            }
+                                        });
+                                    } else{
+                                        //Log.i("TAG", "MOTHA");
+                                        //Log.i("TAG",String.valueOf(dogList.size()));
+                                        //cardStack.setVisibility(View.GONE);
+                                        dogList = new ArrayList<>();
+                                        adapter = new DeckAdapter(dogList, Home.this);
+                                        cardStack.setAdapter(adapter);
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {}
+                            });
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.findPlaypal);  //Set Home selected on bottom navigation
 
         //Navigation selected listener
-
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.userProfile:
-                        startActivity(new Intent(getApplicationContext() ,UserProfile.class));
+                        startActivity(new Intent(getApplicationContext(), UserProfile.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.messages:
-                        startActivity(new Intent(getApplicationContext() ,Messages.class));
+                        startActivity(new Intent(getApplicationContext(), Messages.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.settings:
-                        startActivity(new Intent(getApplicationContext() ,Settings.class));
+                        startActivity(new Intent(getApplicationContext(), Settings.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.findPlaypal:
@@ -69,175 +321,70 @@ public class Home extends AppCompatActivity {
             }
         });
 
-
-        // initializing our array of dog list and swipe deck.
-        dogList = new ArrayList<>();
-        DeckAdapter adapter = new DeckAdapter(dogList, this);
-        // setting adapter to the card deck.
-
-        //likedDogs= new ArrayList<>();
-        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
-        viewProfile = (Button) findViewById(R.id.viewProfile);
-        Button btn2 = (Button) findViewById(R.id.likebtn);
-        Button btn = (Button) findViewById(R.id.disLikebtn);
-/*
-        // adding data to our array of dogs (hardcoding the data until we get the database connected).
-        dogList.add(new DogClass("Victor", "Bulldog", "Fresno", "Mascot of Fresno State", R.drawable.victor));
-        dogList.add(new DogClass("Laika", "Mongral", "Moscow", "One of the first animals in space", R.drawable.laika));
-        dogList.add(new DogClass("Fala", "Scottish Terrier", "Washington D.C", "White house dog for FDR", R.drawable.fala));
-        dogList.add(new DogClass("Balto", "Siberian Husky", "Cleveland", "Lead dog of sled dogs", R.drawable.balto));
-        dogList.add(new DogClass("Firulais", "Chihuahua", "Fresno", "Your average chihuahua", R.drawable.firulais));
-*/
-       // String image = "https://firebasestorage.googleapis.com/v0/b/playpal-5b72e.appspot.com/o/profileImages%2FAG5dkgaFIIQSI1zxY7ETtKdo3Ih2?alt=media&token=249510be-de2a-42e3-b967-b0361279a82d";
-       // DogClass dog = new  DogClass("4", "Mascot of Fresno State", "Bulldog", image , "Victor", "Fresno", "Male", "6");
-       // dog.setImgUrl(image);
-        //dogList.add(dog);
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        final FirebaseUser currentUser= FirebaseAuth.getInstance().getCurrentUser();
-        //DataSnapshot thiUser = reference.child(currentUser);
-
-        reference.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.d("DOGs", "Dogs");
-                    Log.d("TAG Ds",ds.getKey());
-                    Log.d("TAG Current",currentUser.getUid());
-
-                    Dog dog = ds.getValue(Dog.class);
-
-                    if(!ds.getKey().equals(currentUser.getUid())) {
-                        Log.d("TAg",currentUser.getUid());
-                        dog.setId(ds.getKey());
-                        dog.setDogName(ds.child("name").getValue(String.class));
-                        dogList.add(dog);
-                    }
-                    else{
-                        Log.d("TAG REjected Dog",ds.child("name").getValue(String.class));
-                    }
-                    /*
-                    totalSize = (int) dataSnapshot.getChildrenCount();
-                    String img = ds.child("imageUrl").getValue(String.class);
-                    String age = ds.child("age").getValue(String.class);
-                    String bio = ds.child("bio").getValue(String.class);
-                    String breed = ds.child("breed").getValue(String.class);
-                    String name = ds.child("name").getValue(String.class);
-                    String owner = ds.child("owner").getValue(String.class);
-                    String sex = ds.child("sex").getValue(String.class);
-                    String weight = ds.child("weight").getValue(String.class);
-
-                    Log.d("TAG", age);
-                    Log.d("TAG", bio);
-                    Log.d("TAG", breed);
-                    Log.d("TAG", name);
-                    Log.d("TAG", owner);
-                    Log.d("TAG", sex);
-                    Log.d("TAG", weight);
-                    Log.d("TAG", img);
-
-                     */
-
-                }
-                adapter.notifyDataSetChanged();
-
-                //Log.d("TAG", dogList.get(0).getDogName());
-                vP.setW(dogList.get(0));
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        //System.out.println(myRef.getChildren() );
-        // creating the adapter class and passing the dog list array.
-
-        cardStack.setAdapter(adapter);
-
-        //event callback to our card deck.
-
-        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
-
-            @Override
-            public void cardSwipedLeft(int position) {
-                if(dogList.size() > position + 1) {
-                    vP.setW(dogList.get(position + 1));
-                }
-                    //vP.setW(dogList.get(position+=1));
-                Toast.makeText(Home.this, "Card Swiped Left", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void cardSwipedRight(int position) {
-                // if card swipe right
-               Log.d("LIKED DOG: ", dogList.get(position).getDogName());
-               Log.d("LIKED DOG's ID: ", dogList.get(position).getId());
-               if(dogList.size() > position + 1) {
-                   vP.setW(dogList.get(position + 1));
-               }
-               // dogList.remove(position);
-                //User likedDog = dogList.get(position);
-                // likedDogs.add(likedDog);
-               // String name = likedDog.getDogName();
-                //Toast.makeText(Home.this, name, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void cardsDepleted() {
-
-                viewProfile.setVisibility(View.GONE);
-                btn.setVisibility(View.GONE);
-                btn2.setVisibility(View.GONE);
-
-                // if no cards in the deck
-                Toast.makeText(Home.this, "No more dogs in your city", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void cardActionDown() {
-                // if card is swipped down.
-                Log.i("TAG", "CARDS MOVED DOWN");
-            }
-
-            @Override
-            public void cardActionUp() {
-                // if card is moved up.
-                Log.i("TAG", "CARDS MOVED UP");
-            }
-        });
-
-        // Open activity to view User profiles
-        viewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
-                startActivity(intent);
-            }
-        });
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cardStack.swipeTopCardLeft(15);
-
-            }
-        });
-
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cardStack.swipeTopCardRight(15);
-            }
-        });
-
     }
 
 
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        lati = location.getLatitude();
+        longi = location.getLongitude();
 
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> adresses = null;
+        try {
+            adresses = geocoder.getFromLocation(lati,longi,1);
+            String city = adresses.get(0).getLocality();
+            String state = adresses.get(0).getAdminArea();
+            String locee = state + "_" + city;
+
+            coordinatesRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("coordinates");
+            userIDRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+
+            Map<String, Object> userCoord= new HashMap<>();
+            userCoord.put("longitude", longi);
+            userCoord.put("latitude", lati);
+            coordinatesRef.updateChildren(userCoord);
+
+            Map<String, Object> userLoc = new HashMap<>();
+            userLoc.put("location", locee);
+            userIDRef.updateChildren(userLoc);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        locationManager.removeUpdates(this);
+
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
 }
+/*
+Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                                profileSeen.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshotz) {
+                                        //snapshot.getChildrenCount();
+                                        //Log.i("TAG",String.valueOf(snapshotz.getChildrenCount()));
+                                        for (DataSnapshot ys : snapshotz.getChildren()) {
+                                            //Log.i("TAG",ys.getKey());
+                                            seenIds.add(ys.getKey());
+                                        }
+                                        //Log.i("TAG", String.valueOf(seenIds.size()));
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+ */

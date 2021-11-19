@@ -31,7 +31,7 @@ public class ViewProfile extends AppCompatActivity {
 
     public void setW(Dog dogInfo) {
         this.dogInfo = dogInfo;
-        Log.i("TAG",dogInfo.getDogName());
+        Log.i("TAG",dogInfo.getName());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ViewProfile extends AppCompatActivity {
         viewSex = (TextView)findViewById(R.id.sex);
         viewWeight = (TextView)findViewById(R.id.weight);
 
-        viewName.setText(dogInfo.getDogName());
+        viewName.setText(dogInfo.getName());
         viewAge.setText("Age: " + dogInfo.getAge());
         viewBio.setText("Bio: " + dogInfo.getBio());
         viewBreed.setText("Breed: " + dogInfo.getBreed());

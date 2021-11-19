@@ -16,40 +16,27 @@ import java.util.ArrayList;
 
 public class DeckAdapter extends BaseAdapter {
 
-    // Create an array of type User
-    // also created the context
-    private ArrayList<Dog> dogData;
+    private ArrayList<Dog> dogRoster;
     private Context context;
 
-    // constructor for DogData and context
-    public DeckAdapter(ArrayList<Dog> dogData, Context context) {
-        this.dogData = dogData;
+    // on below line we have created constructor for our variables.
+    public DeckAdapter(ArrayList<Dog> courseData, Context context) {
+        this.dogRoster = courseData;
         this.context = context;
     }
 
-    public String getDogData(int position) {
-        return dogData.get(position).getDogName();
-    }
-
     @Override
-    //return the size of the dogData array
     public int getCount() {
-        return dogData.size();
+        // in get count method we are returning the size of our array list.
+        return dogRoster.size();
     }
-
-    //@Override
-    //return the size of the dogData array
-   // public String getDogWeight(int position) {
-        //return dogData.get(position).getWeight();
-    //}
 
     @Override
-    //return the element at a position
     public Object getItem(int position) {
-        return dogData.get(position);
+        // in get item method we are returning the item from our array list.
+        return dogRoster.get(position);
     }
 
-    //get the id o
     @Override
     public long getItemId(int position) {
         // in get item id we are returning the position.
@@ -57,28 +44,19 @@ public class DeckAdapter extends BaseAdapter {
     }
 
     @Override
-
     public View getView(int position, View convertView, ViewGroup parent) {
+        // in get view method we are inflating our layout on below line.
         View v = convertView;
-        View v2 = convertView;
         if (v == null) {
+            // on below line we are inflating our layout.
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.dog_card_grill, parent, false);
-            v2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_view_profile, parent, false);
         }
+        // on below line we are initializing our variables and setting data to our variables.
+        ((TextView) v.findViewById(R.id.idDogName)).setText(dogRoster.get(position).getName());
+        ((TextView) v.findViewById(R.id.idBio)).setText(dogRoster.get(position).getBio());
 
-        // Set the data to be displayed at the dog's card
-        ((TextView) v.findViewById(R.id.idDogName)).setText(dogData.get(position).getDogName());
-        //((TextView) v.findViewById(R.id.idDogName)).setText("test");
-        ((TextView) v.findViewById(R.id.idBio)).setText(dogData.get(position).getBio());
-        ((TextView) v2.findViewById(R.id.weight)).setText(dogData.get(position).getWeight());
-       // ((TextView) v.findViewById(R.id.idCity)).setText(dogData.get(position).getCity());
-        //Log.d("TAG", dogData.get(position).getImgUrl().toString());
         ImageView ivBasicImage = (ImageView) v.findViewById(R.id.idImage);
-        Picasso.with(context).load(dogData.get(position).getImageUrl()).into(ivBasicImage);
-
-
-        //Picasso.with(context).load(dogData.get(position).getImgUrl()).into(ivBasicImage);
+        Picasso.with(context).load(dogRoster.get(position).getImageUrl()).into(ivBasicImage);
         return v;
     }
-
 }

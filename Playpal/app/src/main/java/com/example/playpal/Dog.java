@@ -18,86 +18,10 @@ public class Dog {
     private String owner;
     private String sex;
     private String weight;
-    private String id;
 
-
-    public void setAge(String age){
-        this.age = age;
-    }
-    public String getAge(){
-        return age;
-    }
-    // used to get the bio of the dog
-    public String getBio() {
-
-        return bio;
-    }
-    // used to set the bio of the dog
-    public void setBio(String bio) {
-
-        this.bio = bio;
-    }
-    // used to get the breed of thd dog
-    public String getBreed() {
-        return breed;
-    }
-    // used to set the breed of the dog
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-    // used to get image
-    public String getImageUrl() {
-        return imageUrl;
-    }
-    // used to set image
-    public void setImageUrl(String imageUrl){
-            this.imageUrl = imageUrl;
-    }
-
-    // used to get dog name
-    public String getDogName() {
-        return name;
-    }
-    // used to set the name of the dog
-    public void setDogName(String name) {
-
-        this.name = name;
-    }
-    // used to get dog's owner
-    public String getOwner() {
-        return owner;
-    }
-    // used to set the name of the dog
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    // used to get the sex of the dog
-    public String getSex() {
-        return sex;
-    }
-    // used to set the city of the dog
-    public void setSex(String sex) {
-
-        this.sex = sex;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
-    public String getWeight(){
-        return weight;
-    }
-
-    public String getId(){
-        return id;
-    }
-    public void setId(String id){
-        this.id = id;
-    }
     // constructor.
 
-    public Dog(String owner, String imageUrl, String sex, String bio,  String name, String weight, String age, String breed, String id ) {
+    public Dog(String owner, String imageUrl, String sex, String bio,  String name, String weight, String age, String breed ) {
         this.age = age;
         this.bio = bio;
         this.breed = breed;
@@ -106,8 +30,71 @@ public class Dog {
         this.owner = owner;
         this.sex = sex;
         this.weight = weight;
-        this.id = id;
     }
+
     public Dog(){}
-     
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
 }
