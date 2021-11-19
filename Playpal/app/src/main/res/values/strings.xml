@@ -23,4 +23,43 @@
     <string name="dog_bio">Bio</string>
     <string name="dog_age">Age</string>
     <string name="btn_initProfile">Create Profile</string>
+
+    <string name="motivation"><u>Motivation</u></string>
+    <string name="motivation_paragraph">Playpal is designed to provide users with a convenient
+        method of connecting and communicating with each other in order to arrange play dates for
+        their dogs. More specifically, it is intended to provide dogs with new experiences, and
+        to maintain or improve their social behavior, health, and happiness. After all, a healthy
+        pup is a happy pup </string>
+
+    <string name="team"><u>The Team</u></string>
+
+    <string name="jagdeep">Jagdeep Sran</string>
+    <string name="jagdeepBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
+        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
+        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+
+    <string name="luis">Luis Aguilar</string>
+    <string name="luisBio">Luis is majoring in computer engineering at Fresno State. His expected
+        graduation date is December 2021. He does not have a big computer science back ground, but
+        he taught himself how to use Android Studio to help develop this mobile app. He has a 3
+        year-old dog named Emy whose account you may find while swiping through profiles</string>
+
+    <string name="cisco">Francisco Gomez</string>
+    <string name="ciscoBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
+        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
+        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+
+    <string name="mark">Mark Ragasa</string>
+    <string name="markBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
+        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
+        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+
+    <string name="agustin">Agustin Valadez</string>
+    <string name="agustinBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
+        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
+        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+
+
+
+
 </resources>

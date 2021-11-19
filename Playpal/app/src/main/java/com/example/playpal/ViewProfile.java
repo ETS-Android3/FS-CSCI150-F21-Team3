@@ -1,10 +1,12 @@
 package com.example.playpal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class ViewProfile extends AppCompatActivity {
 
@@ -71,6 +75,36 @@ public class ViewProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.findPlaypal);  //Set Home selected on bottom navigation
+
+        //Navigation selected listener
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.userProfile:
+                        startActivity(new Intent(getApplicationContext(), UserProfile.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.messages:
+                        startActivity(new Intent(getApplicationContext(), Messages.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Settings.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.findPlaypal:
+                        startActivity(new Intent(getApplicationContext(), Home.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
         /* CODE FOR MULTIPLE IMAGES
         //Image Switcher
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
