@@ -7,53 +7,76 @@
     android:layout_height="match_parent"
     tools:context="com.example.playpal.Home">
 
-    <com.daprlabs.cardstack.SwipeFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+
+    <Button
+        android:id="@+id/disLikebtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom|left"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="592dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/dislike_btn"
+        app:backgroundTint="#D63E61"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="clickDisLikeAnimation"/>
 
 
-        <com.daprlabs.cardstack.SwipeDeck
-            android:id="@+id/swipe_deck"
-            android:layout_width="match_parent"
-            android:layout_height="533dp"
-            android:padding="20dp"
-            swipedeck:card_spacing="5dp"
-            swipedeck:max_visible="3"
-            swipedeck:render_above="true"
-            swipedeck:rotation_degrees="15" />
-        <Button
-            android:id="@+id/viewProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="90dp"
-            android:text="View Profile"/>
+    <Button
+        android:id="@+id/viewProfile"
 
-        <Button
-            android:id="@+id/disLikebtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|left"
-            app:backgroundTint="#D63E61"
-            android:layout_marginBottom="90dp"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/dislike_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="116dp"
+        android:layout_marginEnd="125dp"
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/button_with_transparacy"
+        android:text="View Profile"
+        android:onClick="clickAnimation"
+        android:textSize="17dp" />
 
-        <Button
-            android:id="@+id/likebtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|right"
-            app:backgroundTint="#25AA1B"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="90dp"
-            android:background="@drawable/like_btn"
-            swipedeck:layout_constraintStart_toStartOf="parent"
-            swipedeck:layout_constraintTop_toTopOf="parent" />
-    </com.daprlabs.cardstack.SwipeFrameLayout>
+     <com.daprlabs.cardstack.SwipeFrameLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+
+
+         <com.daprlabs.cardstack.SwipeDeck
+             android:id="@+id/swipe_deck"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+
+             swipedeck:card_spacing="0dp"
+             swipedeck:max_visible="6"
+             swipedeck:render_above="true"
+             swipedeck:rotation_degrees="15" />
+
+
+     </com.daprlabs.cardstack.SwipeFrameLayout>
+
+    <Button
+        android:id="@+id/likebtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="592dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/like_btn"
+        android:onClick="clickLikeAnimation"
+        app:backgroundTint="#25AA1B"
+        swipedeck:layout_constraintStart_toStartOf="parent"
+        swipedeck:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

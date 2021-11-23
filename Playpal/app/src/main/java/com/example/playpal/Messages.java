@@ -6,23 +6,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
+import com.example.playpal.databinding.ActivityMessagesBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.ArrayList;
 
 
 public class Messages extends AppCompatActivity {
 
-
-
+    ActivityMessagesBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        /////
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages);
+        binding = ActivityMessagesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        //super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_messages);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.messages);  //Set Home selected on bottom navigation
+        ///----->> YOUR CODE GOES HERE
 
         //Navigation selected listener
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -48,5 +59,7 @@ public class Messages extends AppCompatActivity {
             }
         });
 
+
     }
+
 }

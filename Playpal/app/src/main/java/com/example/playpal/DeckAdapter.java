@@ -54,6 +54,7 @@ public class DeckAdapter extends BaseAdapter {
         // on below line we are initializing our variables and setting data to our variables.
         ((TextView) v.findViewById(R.id.idDogName)).setText(dogRoster.get(position).getName());
         ((TextView) v.findViewById(R.id.idBio)).setText(dogRoster.get(position).getBio());
+        ((TextView) v.findViewById(R.id.idDogLocation)).setText(dogRoster.get(position).prettyPrintCity());
 
         ImageView ivBasicImage = (ImageView) v.findViewById(R.id.idImage);
         Picasso.with(context).load(dogRoster.get(position).getImageUrl()).into(ivBasicImage);

@@ -16,6 +16,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+//For animation
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.animation.BounceInterpolator;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -39,14 +47,92 @@ import java.util.List;
 import java.util.Map;
 
 public class Home extends AppCompatActivity implements LocationListener {
+    //The Following creates an animation for the viewProfile. A little bounce
+    public void clickAnimation(View view){
+        Button button = (Button)findViewById(R.id.viewProfile);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1,20);
+        animation.setInterpolator(interpolator);
+        button.startAnimation(animation);
+        Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //Once the animation is over open the ViewProfile activity
+                startActivity(intent);
+
+            }
+        });
+    }
+    //The Following creates an animation for the like button. A little bounce
+    public void clickLikeAnimation(View view) {
+        Button likes = (Button) findViewById(R.id.likebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        likes.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //Once the animation is over
+                cardStack.swipeTopCardRight(10);
+
+            }
+        });
+    }
+    //The Following creates an animation for the dislike button. A little bounce
+    public void clickDisLikeAnimation(View view) {
+        Button dislikes = (Button) findViewById(R.id.disLikebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        dislikes.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+            @Override
+            //Once the animation is over
+            public void onAnimationEnd(Animation animation) {
+                cardStack.swipeTopCardLeft(10);
+            }
+        });
+    }
     // Variables dependant on firebase usage
     private FirebaseAuth mAuth;
     private DatabaseReference coordinatesRef;
     private DatabaseReference userIDRef;
     private String userId;
     private String userLoc;
-
+    private static Boolean myInvisible;
     // location manipulation variables
     protected double lati, longi;
     LocationManager locationManager;
@@ -73,12 +159,22 @@ public class Home extends AppCompatActivity implements LocationListener {
             ActivityCompat.requestPermissions(Home.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},100);}
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
 
-
         // getting the xml components into variables
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
-        viewProfile = (Button) findViewById(R.id.viewProfile);
+        /* Because buttons have an animation function onClick another buttons are assigned
+           to them to make them visible or invisible
+        * */
+        Button viewProfile2 = (Button) findViewById(R.id.viewProfile);
         Button btn2 = (Button) findViewById(R.id.likebtn);
         Button btn = (Button) findViewById(R.id.disLikebtn);
+
+        /* Make the buttons invisible to avoid making them visible if the stack of dogs cards
+        is empty when the user goes to another activity and comes back to the home activity */
+
+        viewProfile2.setVisibility(View.INVISIBLE);
+        btn.setVisibility(View.INVISIBLE);
+        btn2.setVisibility(View.INVISIBLE);
+
 
         //Firebase get userID
         mAuth = FirebaseAuth.getInstance();
@@ -87,11 +183,11 @@ public class Home extends AppCompatActivity implements LocationListener {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         DatabaseReference user = reference.child(userId);
         ViewProfile vP = new ViewProfile();
-
+        seenIds = new ArrayList<>();
         user.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                seenIds = new ArrayList<>();
+
 
                 Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
                 profileSeen.addValueEventListener(new ValueEventListener() {
@@ -138,9 +234,12 @@ public class Home extends AppCompatActivity implements LocationListener {
                                         Toast.makeText(Home.this, "Test Reached" , Toast.LENGTH_SHORT).show();
                                     }
                                     if(!dogList.isEmpty()){
-                                        viewProfile.setVisibility(View.VISIBLE);
+                                        // make the buttons visible
+
+                                        viewProfile2.setVisibility(View.VISIBLE);
                                         btn.setVisibility(View.VISIBLE);
                                         btn2.setVisibility(View.VISIBLE);
+
                                         cardStack.setVisibility(View.VISIBLE);
                                         vP.setW(dogList.get(0));
                                         // creating the adapter class and passing the dog list array.
@@ -157,13 +256,15 @@ public class Home extends AppCompatActivity implements LocationListener {
                                                     seenUser.put(dogIds.get(position), true);
                                                     profileSeenRef.updateChildren(seenUser);
 
-                                                    vP.setW(dogList.get(position += 1));
+                                                    vP.setW(dogList.get(position));
                                                 } else{
                                                     DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
                                                     Map<String, Object> seenUser = new HashMap<>();
                                                     seenUser.put(dogIds.get(position), true);
                                                     profileSeenRef.updateChildren(seenUser);
                                                 }
+
+
 
 
                                                 DatabaseReference profileDisliked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("matches").child("nope");
@@ -175,19 +276,21 @@ public class Home extends AppCompatActivity implements LocationListener {
 
                                             @Override
                                             public void cardSwipedRight(int position) {
+                                                //if card swiped right
                                                 if (dogList.size() > position + 1) {
                                                     DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
                                                     Map<String, Object> seenUser = new HashMap<>();
                                                     seenUser.put(dogIds.get(position), true);
                                                     profileSeenRef.updateChildren(seenUser);
 
-                                                    vP.setW(dogList.get(position += 1));
+                                                    vP.setW(dogList.get(position));
                                                 }else{
                                                     DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
                                                     Map<String, Object> seenUser = new HashMap<>();
                                                     seenUser.put(dogIds.get(position), true);
                                                     profileSeenRef.updateChildren(seenUser);
                                                 }
+
 
                                                 DatabaseReference profileLiked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("matches").child("yes");
                                                 Map<String, Object> sayYay = new HashMap<>();
@@ -220,8 +323,8 @@ public class Home extends AppCompatActivity implements LocationListener {
 
                                             @Override
                                             public void cardsDepleted() {
-
-                                                viewProfile.setVisibility(View.INVISIBLE);
+                                                //myInvisible = false;
+                                                viewProfile2.setVisibility(View.INVISIBLE);
                                                 btn.setVisibility(View.INVISIBLE);
                                                 btn2.setVisibility(View.INVISIBLE);
                                                 // if no cards in the deck
@@ -242,7 +345,7 @@ public class Home extends AppCompatActivity implements LocationListener {
                                         });
 
                                         // Open activity to view User profiles
-
+/*
                                         viewProfile.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
@@ -250,6 +353,8 @@ public class Home extends AppCompatActivity implements LocationListener {
                                                 startActivity(intent);
                                             }
                                         });
+
+
 
                                         btn.setOnClickListener(new View.OnClickListener() {
                                             @Override
@@ -259,16 +364,20 @@ public class Home extends AppCompatActivity implements LocationListener {
                                             }
                                         });
 
+
                                         btn2.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
                                                 cardStack.swipeTopCardRight(15);
                                             }
                                         });
+
+ */
                                     } else{
-                                        //Log.i("TAG", "MOTHA");
-                                        //Log.i("TAG",String.valueOf(dogList.size()));
-                                        //cardStack.setVisibility(View.GONE);
+                                        // make button invisible is the list is empty
+                                        viewProfile2.setVisibility(View.INVISIBLE);
+                                        btn.setVisibility(View.INVISIBLE);
+                                        btn2.setVisibility(View.INVISIBLE);
                                         dogList = new ArrayList<>();
                                         adapter = new DeckAdapter(dogList, Home.this);
                                         cardStack.setAdapter(adapter);

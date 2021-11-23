@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
@@ -20,7 +22,30 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class ViewProfile extends AppCompatActivity {
+    public void clickBackAnimation(View view) {
+        Button back = (Button) findViewById(R.id.disLikebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        back.startAnimation(animation);
 
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+        });
+    }
     private Button exitProfile;
     //private ImageButton prevImg, nextImg;
     //private ImageSwitcher imageSwitcher;

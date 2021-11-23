@@ -3,30 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.playpal.Messages">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            tools:context=".Messages">
 
-            <!-- PASTE YOUR CODE HER WITHOUT LAYOUT, SCROLLVIEW, OR BOTTOM NAV -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginBottom="1dp"
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="415dp"
+                android:layout_height="663dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-            <!-- CONSTRAIN THE TOP OF THIS ^^^ TO THE BOTTOM OF YOUR LAST ITEM -->
-
+                tools:listitem="@layout/chatter" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+   </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
