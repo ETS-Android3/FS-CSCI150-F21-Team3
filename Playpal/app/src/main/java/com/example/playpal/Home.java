@@ -47,85 +47,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Home extends AppCompatActivity implements LocationListener {
-    //The Following creates an animation for the viewProfile. A little bounce
-    public void clickAnimation(View view){
-        Button button = (Button)findViewById(R.id.viewProfile);
-        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1,20);
-        animation.setInterpolator(interpolator);
-        button.startAnimation(animation);
-        Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                //Once the animation is over open the ViewProfile activity
-                startActivity(intent);
-
-            }
-        });
-    }
-    //The Following creates an animation for the like button. A little bounce
-    public void clickLikeAnimation(View view) {
-        Button likes = (Button) findViewById(R.id.likebtn);
-        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
-        animation.setInterpolator(interpolator);
-        likes.startAnimation(animation);
-
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                //Once the animation is over
-                cardStack.swipeTopCardRight(10);
-
-            }
-        });
-    }
-    //The Following creates an animation for the dislike button. A little bounce
-    public void clickDisLikeAnimation(View view) {
-        Button dislikes = (Button) findViewById(R.id.disLikebtn);
-        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
-        animation.setInterpolator(interpolator);
-        dislikes.startAnimation(animation);
-
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-
-            @Override
-            //Once the animation is over
-            public void onAnimationEnd(Animation animation) {
-                cardStack.swipeTopCardLeft(10);
-            }
-        });
-    }
     // Variables dependant on firebase usage
     private FirebaseAuth mAuth;
     private DatabaseReference coordinatesRef;
@@ -146,7 +67,6 @@ public class Home extends AppCompatActivity implements LocationListener {
 
     private Button viewProfile;
     //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,11 +90,9 @@ public class Home extends AppCompatActivity implements LocationListener {
 
         /* Make the buttons invisible to avoid making them visible if the stack of dogs cards
         is empty when the user goes to another activity and comes back to the home activity */
-
         viewProfile2.setVisibility(View.INVISIBLE);
         btn.setVisibility(View.INVISIBLE);
         btn2.setVisibility(View.INVISIBLE);
-
 
         //Firebase get userID
         mAuth = FirebaseAuth.getInstance();
@@ -184,19 +102,19 @@ public class Home extends AppCompatActivity implements LocationListener {
         DatabaseReference user = reference.child(userId);
         ViewProfile vP = new ViewProfile();
         seenIds = new ArrayList<>();
+
         user.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
                 Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
                 profileSeen.addValueEventListener(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshotz) {
-                        //snapshot.getChildrenCount();
-                        //Log.i("TAG",String.valueOf(snapshotz.getChildrenCount()));
+
                         for (DataSnapshot ys : snapshotz.getChildren()) {
-                            //Log.i("TAG",ys.getKey());
                             seenIds.add(ys.getKey());
                         }
                         //obtained user's location via database reference
@@ -235,7 +153,6 @@ public class Home extends AppCompatActivity implements LocationListener {
                                     }
                                     if(!dogList.isEmpty()){
                                         // make the buttons visible
-
                                         viewProfile2.setVisibility(View.VISIBLE);
                                         btn.setVisibility(View.VISIBLE);
                                         btn2.setVisibility(View.VISIBLE);
@@ -245,134 +162,6 @@ public class Home extends AppCompatActivity implements LocationListener {
                                         // creating the adapter class and passing the dog list array.
                                         cardStack.setAdapter(adapter);
                                         //event callback to our card deck.
-                                        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
-                                            @Override
-                                            public void cardSwipedLeft(int position) {
-                                                // if card swipe left
-                                                if (dogList.size() > position + 1) {
-
-                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
-                                                    Map<String, Object> seenUser = new HashMap<>();
-                                                    seenUser.put(dogIds.get(position), true);
-                                                    profileSeenRef.updateChildren(seenUser);
-
-                                                    vP.setW(dogList.get(position));
-                                                } else{
-                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
-                                                    Map<String, Object> seenUser = new HashMap<>();
-                                                    seenUser.put(dogIds.get(position), true);
-                                                    profileSeenRef.updateChildren(seenUser);
-                                                }
-
-
-
-
-                                                DatabaseReference profileDisliked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("matches").child("nope");
-                                                Map<String, Object> sayNay = new HashMap<>();
-                                                sayNay.put(dogIds.get(position), true);
-                                                profileDisliked.updateChildren(sayNay);
-
-                                            }
-
-                                            @Override
-                                            public void cardSwipedRight(int position) {
-                                                //if card swiped right
-                                                if (dogList.size() > position + 1) {
-                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
-                                                    Map<String, Object> seenUser = new HashMap<>();
-                                                    seenUser.put(dogIds.get(position), true);
-                                                    profileSeenRef.updateChildren(seenUser);
-
-                                                    vP.setW(dogList.get(position));
-                                                }else{
-                                                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
-                                                    Map<String, Object> seenUser = new HashMap<>();
-                                                    seenUser.put(dogIds.get(position), true);
-                                                    profileSeenRef.updateChildren(seenUser);
-                                                }
-
-
-                                                DatabaseReference profileLiked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("matches").child("yes");
-                                                Map<String, Object> sayYay = new HashMap<>();
-                                                sayYay.put(dogIds.get(position), true);
-                                                profileLiked.updateChildren(sayYay);
-
-                                                Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(dogIds.get(position)).child("matches").child("yes");
-                                                profileSeen.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshotter) {
-                                                        if(snapshotter.exists()){
-                                                            for(DataSnapshot wtf : snapshotter.getChildren()){
-                                                                swipedYesIds.add(wtf.getKey());
-                                                                //Log.i("TAG",String.valueOf(wtf.getKey()));
-                                                            }
-                                                            if (swipedYesIds.contains(userId)){
-                                                                Toast.makeText(Home.this, "You've been matched!", Toast.LENGTH_SHORT).show();
-                                                            }
-                                                            //Log.i("TAG",String.valueOf(snapshotter.getChildrenCount()));
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
-
-                                            }
-
-                                            @Override
-                                            public void cardsDepleted() {
-                                                //myInvisible = false;
-                                                viewProfile2.setVisibility(View.INVISIBLE);
-                                                btn.setVisibility(View.INVISIBLE);
-                                                btn2.setVisibility(View.INVISIBLE);
-                                                // if no cards in the deck
-                                                //Toast.makeText(Home.this, "No more dogs in your city", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void cardActionDown() {
-                                                // if card is swipped down.
-                                                // Log.i("TAG", "CARDS MOVED DOWN");
-                                            }
-
-                                            @Override
-                                            public void cardActionUp() {
-                                                // if card is moved up.
-                                                //Log.i("TAG", "CARDS MOVED UP");
-                                            }
-                                        });
-
-                                        // Open activity to view User profiles
-/*
-                                        viewProfile.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
-                                                startActivity(intent);
-                                            }
-                                        });
-
-
-
-                                        btn.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                cardStack.swipeTopCardLeft(15);
-
-                                            }
-                                        });
-
-
-                                        btn2.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                cardStack.swipeTopCardRight(15);
-                                            }
-                                        });
-
- */
                                     } else{
                                         // make button invisible is the list is empty
                                         viewProfile2.setVisibility(View.INVISIBLE);
@@ -386,22 +175,137 @@ public class Home extends AppCompatActivity implements LocationListener {
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {}
                             });
-
                         }
-
                     }
-
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
+                    public void onCancelled(@NonNull DatabaseError error) {}
                 });
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
 
+        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+            @Override
+            public void cardSwipedLeft(int position) {
+                // if card swipe left
+                if (dogList.size() > position + 1) {
 
+                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                    Map<String, Object> seenUser = new HashMap<>();
+                    seenUser.put(dogIds.get(position), true);
+                    profileSeenRef.updateChildren(seenUser);
+
+                    vP.setW(dogList.get(position));
+                } else{
+                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                    Map<String, Object> seenUser = new HashMap<>();
+                    seenUser.put(dogIds.get(position), true);
+                    profileSeenRef.updateChildren(seenUser);
+                }
+                DatabaseReference profileDisliked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("connections").child("nope");
+                Map<String, Object> sayNay = new HashMap<>();
+                sayNay.put(dogIds.get(position), true);
+                profileDisliked.updateChildren(sayNay);
+            }
+
+            @Override
+            public void cardSwipedRight(int position) {
+                //Log.i("TAG",dogIds.get(position));
+                //if card swiped right
+                if (dogList.size() > position + 1) {
+                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                    Map<String, Object> seenUser = new HashMap<>();
+                    seenUser.put(dogIds.get(position), true);
+                    profileSeenRef.updateChildren(seenUser);
+
+                    vP.setW(dogList.get(position));
+                }else{
+                    DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
+                    Map<String, Object> seenUser = new HashMap<>();
+                    seenUser.put(dogIds.get(position), true);
+                    profileSeenRef.updateChildren(seenUser);
+                }
+
+                DatabaseReference profileLiked = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("connections").child("yes");
+                Map<String, Object> sayYay = new HashMap<>();
+                sayYay.put(dogIds.get(position), true);
+                profileLiked.updateChildren(sayYay);
+
+                isConnectionMatch(dogIds.get(position));
+/*
+                DatabaseReference profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(dogIds.get(position)).child("connections").child("yes");
+                profileSeen.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshotter) {
+                        if(snapshotter.exists()){
+                            for(DataSnapshot wtf : snapshotter.getChildren()){
+                                swipedYesIds.add(wtf.getKey());
+                            }
+                            if (swipedYesIds.contains(userId)){
+                                Toast.makeText(Home.this, "You've been matched!", Toast.LENGTH_SHORT).show();
+
+                                //String key = FirebaseDatabase.getInstance().getReference().child("chat").push().getKey();
+
+                                DatabaseReference skitskat = FirebaseDatabase.getInstance().getReference().child("users").child(dogIds.get(position));
+                                //Log.i("TAG",dogIds.get(position));
+                                //skitskat.child("connections").child("matches").child(userId).setValue(true);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+*/
+            }
+
+            private void isConnectionMatch(String s) {
+                //Toast.makeText(Home.this, s, Toast.LENGTH_SHORT).show();
+                DatabaseReference swipedOnConnections = FirebaseDatabase.getInstance().getReference().child("users").child(s).child("connections").child("yes").child(userId);
+                swipedOnConnections.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot swipedSnap) {
+                        if(swipedSnap.exists()){
+                            Toast.makeText(Home.this, s, Toast.LENGTH_SHORT).show();
+
+                            String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+
+                            DatabaseReference skitskat = FirebaseDatabase.getInstance().getReference().child("users").child(s);
+                            DatabaseReference skitskut = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+                            DatabaseReference addChat = FirebaseDatabase.getInstance().getReference();
+                            //Log.i("TAG",dogIds.get(position));
+                            skitskat.child("connections").child("matches").child(userId).child("ChatId").setValue(key);
+                            skitskut.child("connections").child("matches").child(s).child("ChatId").setValue(key);
+                            addChat.child("chats").child(key).setValue("");
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
+            }
+
+            @Override
+            public void cardsDepleted() {
+                //myInvisible = false;
+                viewProfile2.setVisibility(View.INVISIBLE);
+                btn.setVisibility(View.INVISIBLE);
+                btn2.setVisibility(View.INVISIBLE);
+                // if no cards in the deck
+                //Toast.makeText(Home.this, "No more dogs in your city", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void cardActionDown() {
+                // if card is swipped down.
+                // Log.i("TAG", "CARDS MOVED DOWN");
+            }
+
+            @Override
+            public void cardActionUp() {
+                // if card is moved up.
+                //Log.i("TAG", "CARDS MOVED UP");
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.findPlaypal);  //Set Home selected on bottom navigation
@@ -429,7 +333,74 @@ public class Home extends AppCompatActivity implements LocationListener {
                 return false;
             }
         });
+    }
 
+
+    //The Following creates an animation for the viewProfile. A little bounce
+    public void clickAnimation(View view){
+        Button button = (Button)findViewById(R.id.viewProfile);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1,20);
+        animation.setInterpolator(interpolator);
+        button.startAnimation(animation);
+        Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //Once the animation is over open the ViewProfile activity
+                startActivity(intent);
+            }
+        });
+    }
+    //The Following creates an animation for the like button. A little bounce
+    public void clickLikeAnimation(View view) {
+        Button likes = (Button) findViewById(R.id.likebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        likes.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //Once the animation is over
+                cardStack.swipeTopCardRight(10);
+            }
+        });
+    }
+    //The Following creates an animation for the dislike button. A little bounce
+    public void clickDisLikeAnimation(View view) {
+        Button dislikes = (Button) findViewById(R.id.disLikebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        dislikes.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            //Once the animation is over
+            public void onAnimationEnd(Animation animation) {
+                cardStack.swipeTopCardLeft(10);
+            }
+        });
     }
 
 
@@ -467,14 +438,11 @@ public class Home extends AppCompatActivity implements LocationListener {
     }
 
     @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-    }
+    public void onProviderEnabled(@NonNull String provider) {}
 
     @Override
-    public void onProviderDisabled(@NonNull String provider) {
+    public void onProviderDisabled(@NonNull String provider) {}
 
-    }
 }
 /*
 Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
@@ -482,6 +450,7 @@ Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users")
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshotz) {
                                         //snapshot.getChildrenCount();
+
                                         //Log.i("TAG",String.valueOf(snapshotz.getChildrenCount()));
                                         for (DataSnapshot ys : snapshotz.getChildren()) {
                                             //Log.i("TAG",ys.getKey());
@@ -496,4 +465,4 @@ Query profileSeen = FirebaseDatabase.getInstance().getReference().child("users")
 
                                     }
                                 });
- */
+*/
