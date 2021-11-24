@@ -22,30 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class ViewProfile extends AppCompatActivity {
-    public void clickBackAnimation(View view) {
-        Button back = (Button) findViewById(R.id.disLikebtn);
-        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
-        animation.setInterpolator(interpolator);
-        back.startAnimation(animation);
 
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-        });
-    }
     private Button exitProfile;
     //private ImageButton prevImg, nextImg;
     //private ImageSwitcher imageSwitcher;
@@ -96,8 +73,7 @@ public class ViewProfile extends AppCompatActivity {
         exitProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
+                clickBackAnimation(null);
             }
         });
 
@@ -175,4 +151,31 @@ public class ViewProfile extends AppCompatActivity {
             }
         }); */
     }
+    // Animation function for button animation
+    public void clickBackAnimation(View view) {
+        Intent intent = new Intent(getApplicationContext(), Home.class);
+        Button back = (Button) findViewById(R.id.exitProfile);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        back.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startActivity(intent);
+            }
+        });
+    }
+
 }
