@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Playpal">
         <activity
+            android:name=".ChatRoom"
+            android:exported="false" />
+        <activity
             android:name=".InitProfileActivity"
             android:exported="true" />
         <activity

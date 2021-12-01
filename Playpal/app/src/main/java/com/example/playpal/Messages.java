@@ -33,7 +33,6 @@ public class Messages extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.messages);  //Set Home selected on bottom navigation
-        ///----->> YOUR CODE GOES HERE
 
         //Navigation selected listener
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -59,6 +58,40 @@ public class Messages extends AppCompatActivity {
             }
         });
 
+        int[] imageId = {R.drawable.firulais,R.drawable.balto,R.drawable.victor,R.drawable.laika,R.drawable.fala,R.drawable.fala,R.drawable.fala};
+        String[] name = {"Firulais", "Balto", "Victor", "Laika", "Fala","Fala","Fala"};
+        String[] lastMessage = {"Hello","How are you?","Play Date?","How's frank doing?","Cya later","How's frank doing?","Cya later", "Cya later", "Cya later"};
+        String[] lastmsgTime = {"8:45 pm", "7:34 pm","9:32 am","5:76 pm", "4:34 pm", "4:34 pm", "4:34 pm"};
+        String[] phoneNo = {"7656610000","9999043232","7834354323","9876543211","5434432343","5434432343","5434432343"};
+        String[] city = {"Fresno","Merced","Hanford","Visalia","Stockton","Stockton","Stockton"};
+
+        ArrayList<User> userArrayList = new ArrayList<>();
+
+        for(int i = 0;i< imageId.length;i++){
+
+            User user = new User(name[i],lastMessage[i],lastmsgTime[i],phoneNo[i],city[i],imageId[i]);
+            userArrayList.add(user);
+
+        }
+
+
+        ListAdapter listAdapter = new ListAdapter(Messages.this,userArrayList);
+
+        binding.listview.setAdapter(listAdapter);
+        binding.listview.setClickable(true);
+        binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent i = new Intent(Messages.this, ChatRoom.class);
+                i.putExtra("name",name[position]);
+                i.putExtra("phone",phoneNo[position]);
+                i.putExtra("city",city[position]);
+                i.putExtra("imageid",imageId[position]);
+                startActivity(i);
+
+            }
+        });
 
     }
 
