@@ -21,7 +21,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/firulais"/>
+                android:src="@drawable/firulais" />
 
 
             <LinearLayout
@@ -37,14 +37,14 @@
                     android:text="Firulais"
                     android:textColor="@color/black"
                     android:textSize="26sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/lastMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Hi, how are you?"/>
+                    android:text="Hi, how are you?" />
 
             </LinearLayout>
 
@@ -55,12 +55,15 @@
             android:id="@+id/msgtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
             android:layout_alignParentRight="true"
-            android:text="4:35 pm"/>
+            android:padding="15dp"
+            android:text="4:35 pm" />
 
 
 
     </RelativeLayout>
 
 </LinearLayout>
+
