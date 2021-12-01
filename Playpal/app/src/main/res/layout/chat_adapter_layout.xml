@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/oppoLayout"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp">
+
+            <TextView
+                android:id="@+id/oppoMessage"
+                android:padding="20dp"
+                android:background="@drawable/opo_msg_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is opposite user message"
+                android:textColor="#424242"/>
+            <TextView
+                android:id="@+id/oppoMsgTime"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11-26-2021 03:06 AM" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:id="@+id/myLayout"
+            android:layout_marginStart="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp">
+
+            <TextView
+                android:id="@+id/myMessage"
+                android:padding="20dp"
+                android:background="@drawable/my_msg_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is my message"
+                android:textColor="#FFFFFF"/>
+            <TextView
+                android:layout_gravity="end"
+                android:id="@+id/myMsgTime"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11-26-2021 03:07 AM" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

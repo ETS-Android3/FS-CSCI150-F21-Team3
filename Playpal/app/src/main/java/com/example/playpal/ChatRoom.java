@@ -32,6 +32,8 @@ import java.util.Map;
 
 public class ChatRoom extends AppCompatActivity {
 
+    private final List<ChatList> chatLists = new ArrayList<>();
+
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
     private EditText newMsg;
@@ -39,6 +41,9 @@ public class ChatRoom extends AppCompatActivity {
     private ImageView backBtn;
     private ImageView dogPic;
     private TextView dogName;
+
+    private RecyclerView chatRecView;
+    private ChatAdapter chatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +71,16 @@ public class ChatRoom extends AppCompatActivity {
         dogPic = findViewById(R.id.profilePic);
         dogName = findViewById(R.id.dogName);
 
+        chatRecView = findViewById(R.id.chatRecView);
+
         Picasso.with(ChatRoom.this).load(getPicUrl).into(dogPic);
         dogName.setText(getName);
+
+        chatRecView.setHasFixedSize(true);
+        chatRecView.setLayoutManager(new LinearLayoutManager(ChatRoom.this));
+
+        chatAdapter = new ChatAdapter(chatLists, ChatRoom.this);
+        chatRecView.setAdapter(chatAdapter);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,11 +88,25 @@ public class ChatRoom extends AppCompatActivity {
 
                 if(snapshot.child("chats").child(chatId).child("history").getValue() != ""){
 
+                    chatLists.clear();
+
                     for(DataSnapshot messagesSnapshot : snapshot.child("chats").child(chatId).child("history").getChildren()){
 
                         final String getSender = messagesSnapshot.child("sender").getValue(String.class);
                         final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
                         final String getTimestamp = messagesSnapshot.child("timestamp").getValue(String.class);
+
+                        Timestamp timestamp = new Timestamp(Long.parseLong(getTimestamp));
+                        Date date = new Date(timestamp.getTime());
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+                        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+
+                        ChatList chatList = new ChatList(getSender,getMsg, simpleDateFormat.format(date), simpleTimeFormat.format(date));
+                        chatLists.add(chatList);
+
+                        chatAdapter.updateChatLists(chatLists);
+
+                        chatRecView.scrollToPosition(chatLists.size()-1);
                     }
                 }
             }
