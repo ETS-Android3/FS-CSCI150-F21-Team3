@@ -188,7 +188,9 @@ public class Home extends AppCompatActivity implements LocationListener {
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
+                clickDisLikeAnimation(null);
                 // if card swipe left
+                //btn.setBackground(getResources().getDrawable(R.drawable.fill_dislike));
                 if (dogList.size() > position + 1) {
 
                     DatabaseReference profileSeenRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("seen");
@@ -207,10 +209,14 @@ public class Home extends AppCompatActivity implements LocationListener {
                 Map<String, Object> sayNay = new HashMap<>();
                 sayNay.put(dogIds.get(position), true);
                 profileDisliked.updateChildren(sayNay);
+
+                clickDisLikeAnimation2(null);
             }
 
             @Override
             public void cardSwipedRight(int position) {
+                //clickLikeAnimation(null);
+                //btn2.setBackground(getResources().getDrawable(R.drawable.like_w_outline));
                 //Log.i("TAG",dogIds.get(position));
                 //if card swiped right
                 if (dogList.size() > position + 1) {
@@ -257,6 +263,7 @@ public class Home extends AppCompatActivity implements LocationListener {
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
 */
+                clickLikeAnimation2(null);
             }
 
             private void isConnectionMatch(String s) {
@@ -343,6 +350,7 @@ public class Home extends AppCompatActivity implements LocationListener {
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1,20);
         animation.setInterpolator(interpolator);
         button.startAnimation(animation);
+
         Intent intent = new Intent(getApplicationContext(), ViewProfile.class);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -365,6 +373,7 @@ public class Home extends AppCompatActivity implements LocationListener {
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
         animation.setInterpolator(interpolator);
         likes.startAnimation(animation);
+        likes.setBackground(getResources().getDrawable(R.drawable.fill_like));
 
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -376,9 +385,37 @@ public class Home extends AppCompatActivity implements LocationListener {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //Once the animation is over
+                likes.setBackground(getResources().getDrawable(R.drawable.like_outline));
                 cardStack.swipeTopCardRight(10);
+
             }
         });
+
+    }
+    public void clickLikeAnimation2(View view) {
+        Button likes = (Button) findViewById(R.id.likebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        likes.startAnimation(animation);
+        likes.setBackground(getResources().getDrawable(R.drawable.fill_like));
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                likes.setBackground(getResources().getDrawable(R.drawable.like_outline));
+                //Once the animation is over
+                //cardStack.swipeTopCardRight(10);
+
+            }
+        });
+
     }
     //The Following creates an animation for the dislike button. A little bounce
     public void clickDisLikeAnimation(View view) {
@@ -387,7 +424,7 @@ public class Home extends AppCompatActivity implements LocationListener {
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
         animation.setInterpolator(interpolator);
         dislikes.startAnimation(animation);
-
+        dislikes.setBackground(getResources().getDrawable(R.drawable.fill_dislike));
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
@@ -398,9 +435,37 @@ public class Home extends AppCompatActivity implements LocationListener {
             @Override
             //Once the animation is over
             public void onAnimationEnd(Animation animation) {
+                dislikes.setBackground(getResources().getDrawable(R.drawable.dislike_outline));
                 cardStack.swipeTopCardLeft(10);
             }
+
         });
+
+    }
+
+    public void clickDisLikeAnimation2(View view) {
+        Button dislikes = (Button) findViewById(R.id.disLikebtn);
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.1, 20);
+        animation.setInterpolator(interpolator);
+        dislikes.startAnimation(animation);
+        dislikes.setBackground(getResources().getDrawable(R.drawable.fill_dislike));
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            //Once the animation is over
+            public void onAnimationEnd(Animation animation) {
+                dislikes.setBackground(getResources().getDrawable(R.drawable.dislike_outline));
+                //cardStack.swipeTopCardLeft(10);
+            }
+
+        });
+
     }
 
 
