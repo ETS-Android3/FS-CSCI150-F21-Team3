@@ -11,14 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<com.example.playpal.User> {
+public class ListAdapter extends ArrayAdapter<com.example.playpal.Dog> {
 
 
-    public ListAdapter(Context context, ArrayList<com.example.playpal.User> userArrayList){
+    public ListAdapter(Context context, ArrayList<com.example.playpal.Dog> dogArrayList){
 
-        super(context,R.layout.chatter,userArrayList);
+        super(context,R.layout.chatter,dogArrayList);
 
     }
 
@@ -26,7 +28,7 @@ public class ListAdapter extends ArrayAdapter<com.example.playpal.User> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        com.example.playpal.User user = getItem(position);
+        com.example.playpal.Dog dog = getItem(position);
 
         if (convertView == null){
 
@@ -34,17 +36,25 @@ public class ListAdapter extends ArrayAdapter<com.example.playpal.User> {
 
         }
 
+        //TO BE IMPLEMENTED
+        //get LAst mssg fnction
+        //get time of last sent mssg
+
         ImageView imageView = convertView.findViewById(R.id.profile_pic);
         TextView userName = convertView.findViewById(R.id.personName);
-        TextView lastMsg = convertView.findViewById(R.id.lastMessage);
-        TextView time = convertView.findViewById(R.id.msgtime);
+        //TextView lastMsg = convertView.findViewById(R.id.lastMessage);
+        // TextView time = convertView.findViewById(R.id.msgtime);
 
-        imageView.setImageResource(user.imageId);
-        userName.setText(user.name);
-        lastMsg.setText(user.lastMessage);
-        time.setText(user.lastMsgTime);
+        //imageView.setImageResource(dog.getImageUrl());
+        Picasso.with(getContext()).load(dog.getImageUrl()).into(imageView);
+        userName.setText(dog.getName());
+        //lastMsg.setText(user.lastMessage);
+        //time.setText(user.lastMsgTime);
 
 
         return convertView;
     }
 }
+
+
+
