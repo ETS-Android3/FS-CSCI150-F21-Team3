@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -77,7 +78,11 @@ public class Home extends AppCompatActivity implements LocationListener {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(Home.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(Home.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},100);}
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            locationManager.requestLocationUpdates(LocationManager.FUSED_PROVIDER,0,0,this);
+        }else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+        }
 
         // getting the xml components into variables
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
@@ -149,7 +154,7 @@ public class Home extends AppCompatActivity implements LocationListener {
                                     }
                                     // user not found
                                     else{
-                                        Toast.makeText(Home.this, "Test Reached" , Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(Home.this, "Test Reached" , Toast.LENGTH_SHORT).show();
                                     }
                                     if(!dogList.isEmpty()){
                                         // make the buttons visible
@@ -275,15 +280,17 @@ public class Home extends AppCompatActivity implements LocationListener {
                         if(swipedSnap.exists()){
                             Toast.makeText(Home.this, s, Toast.LENGTH_SHORT).show();
 
-                            String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+                            String key = FirebaseDatabase.getInstance().getReference().child("chats").push().getKey();
 
                             DatabaseReference skitskat = FirebaseDatabase.getInstance().getReference().child("users").child(s);
                             DatabaseReference skitskut = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
                             DatabaseReference addChat = FirebaseDatabase.getInstance().getReference();
                             //Log.i("TAG",dogIds.get(position));
-                            skitskat.child("connections").child("matches").child(userId).child("ChatId").setValue(key);
-                            skitskut.child("connections").child("matches").child(s).child("ChatId").setValue(key);
-                            addChat.child("chats").child(key).setValue("");
+                            skitskat.child("connections").child("matches").child(userId).child("chatId").setValue(key);
+                            skitskut.child("connections").child("matches").child(s).child("chatId").setValue(key);
+                            addChat.child("chats").child(key).child("history").setValue("");
+                            addChat.child("chats").child(key).child("participants").child(userId).setValue(true);
+                            addChat.child("chats").child(key).child("participants").child(s).setValue(true);
                         }
                     }
                     @Override
@@ -321,21 +328,26 @@ public class Home extends AppCompatActivity implements LocationListener {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.userProfile:
-                        startActivity(new Intent(getApplicationContext(), UserProfile.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.messages:
-                        startActivity(new Intent(getApplicationContext(), Messages.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), Settings.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.findPlaypal:
-                        return true;
+                if (item.getItemId() == R.id.userProfile){
+                    Intent i = new Intent(Home.this, UserProfile.class);
+                    startActivity(i);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+                else if (item.getItemId() == R.id.messages){
+                    Intent i = new Intent(Home.this, Messages.class);
+                    startActivity(i);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+                else if (item.getItemId() == R.id.settings){
+                    Intent i = new Intent(Home.this, Settings.class);
+                    startActivity(i);
+                    overridePendingTransition(0, 0);
+                    finish();
+                }
+                else if (item.getItemId() == R.id.findPlaypal){
+                    return true;
                 }
                 return false;
             }

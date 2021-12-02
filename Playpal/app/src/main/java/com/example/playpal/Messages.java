@@ -122,21 +122,28 @@ public class Messages extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.userProfile:
-                        startActivity(new Intent(getApplicationContext() ,UserProfile.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.findPlaypal:
-                        startActivity(new Intent(getApplicationContext() ,Home.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext() ,Settings.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.messages:
-                        return true;
+                if (item.getItemId() == R.id.userProfile){
+                    Intent i = new Intent(Messages.this, UserProfile.class);
+                    startActivity(i);
+                    overridePendingTransition(0, 0);
+                    finish();
+
+                }
+                else if (item.getItemId() == R.id.messages){
+                    return true;
+                }
+                else if (item.getItemId() == R.id.settings){
+                    Intent i = new Intent(Messages.this, Settings.class);
+                    startActivity(i);
+                    overridePendingTransition(0, 0);
+                    finish();
+
+                }
+                else if (item.getItemId() == R.id.findPlaypal){
+                    Intent i = new Intent(Messages.this, Home.class);
+                    startActivity(i);
+                    overridePendingTransition(0, 0);
+                    finish();
                 }
                 return false;
             }

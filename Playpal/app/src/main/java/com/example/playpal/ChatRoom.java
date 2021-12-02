@@ -76,6 +76,7 @@ public class ChatRoom extends AppCompatActivity {
         Picasso.with(ChatRoom.this).load(getPicUrl).into(dogPic);
         dogName.setText(getName);
 
+
         chatRecView.setHasFixedSize(true);
         chatRecView.setLayoutManager(new LinearLayoutManager(ChatRoom.this));
 
@@ -91,6 +92,7 @@ public class ChatRoom extends AppCompatActivity {
                     chatLists.clear();
 
                     for(DataSnapshot messagesSnapshot : snapshot.child("chats").child(chatId).child("history").getChildren()){
+
 
                         final String getSender = messagesSnapshot.child("sender").getValue(String.class);
                         final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
@@ -153,4 +155,3 @@ public class ChatRoom extends AppCompatActivity {
         });
     }
 }
-
