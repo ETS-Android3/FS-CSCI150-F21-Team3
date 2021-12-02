@@ -68,7 +68,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/member1"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                android:background="@drawable/flash2"/>
 
             <TextView
                 android:id="@+id/member1"
@@ -105,7 +106,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/member2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/member1bio" />
+                app:layout_constraintTop_toBottomOf="@+id/member1bio"
+                android:background="@drawable/spiderman"/>
 
             <TextView
                 android:id="@+id/member2"
@@ -145,7 +147,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/member3"
                 app:layout_constraintHorizontal_bias="0.083"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/member2bio" />
+                app:layout_constraintTop_toBottomOf="@+id/member2bio"
+                android:background="@drawable/wolverine"/>
 
             <TextView
                 android:id="@+id/member3"
@@ -184,7 +187,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/member4"
                 app:layout_constraintHorizontal_bias="0.083"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/member3bio" />
+                app:layout_constraintTop_toBottomOf="@+id/member3bio"
+                android:background = "@drawable/batman"/>
 
             <TextView
                 android:id="@+id/member4"
@@ -223,7 +227,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/member5"
                 app:layout_constraintHorizontal_bias="0.083"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/member4bio" />
+                app:layout_constraintTop_toBottomOf="@+id/member4bio"
+                android:background="@drawable/captain_america"/>
 
             <TextView
                 android:id="@+id/member5"

@@ -34,9 +34,10 @@
     <string name="team"><u>The Team</u></string>
 
     <string name="jagdeep">Jagdeep Sran</string>
-    <string name="jagdeepBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
-        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
-        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+    <string name="jagdeepBio">Jagdeep is majoring in computer science at Fresno State. He
+    is expected to graduation on December 2021. He has been messing with computers since a young
+    age but got into coding during college and was motivated to pursue a career as a software
+    developer</string>
 
     <string name="luis">Luis Aguilar</string>
     <string name="luisBio">Luis is majoring in computer engineering at Fresno State. His expected
@@ -45,19 +46,18 @@
         year-old dog named Emy whose account you may find while swiping through profiles</string>
 
     <string name="cisco">Francisco Gomez</string>
-    <string name="ciscoBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
-        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
-        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+    <string name="ciscoBio">Francisco Gomez is majoring in computer science and this project  was his
+        first software project.</string>
 
     <string name="mark">Mark Ragasa</string>
-    <string name="markBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
-        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
-        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+    <string name="markBio">Mark is majoring in computer science at Fresno State. He is expected
+        to graduate in Spring 2022. He started messing with computers in his high school years and originally wanted to be a
+        computer engineer and changed his mind and applied for computer science for college.</string>
 
     <string name="agustin">Agustin Valadez</string>
-    <string name="agustinBio">ubhcbl h iu iu hfrehuoiq o orfuhiooirefh ihgfrwoie hopierwh ioe
-        vfdoiwjh ih gw hig eouisehg srgufhiertu gkjdgvhn iugbnbkske hriuo i oiuhg srihj go
-        rlkfjh ildhf /al foi  fh l, ir wsr hiuoeh ohi ohsk</string>
+    <string name="agustinBio">Agustin Valadez is majoring in computer science at Fresno State. He
+        is currently a senior and is expected to graduate in Spring 2022, he enjoys playing video
+        games and watching anime in his free time.</string>
 
 
 </resources>

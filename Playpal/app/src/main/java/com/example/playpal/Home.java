@@ -278,7 +278,7 @@ public class Home extends AppCompatActivity implements LocationListener {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot swipedSnap) {
                         if(swipedSnap.exists()){
-                            Toast.makeText(Home.this, s, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Home.this, s, Toast.LENGTH_SHORT).show();
 
                             String key = FirebaseDatabase.getInstance().getReference().child("chats").push().getKey();
 
